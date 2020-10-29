@@ -6,18 +6,24 @@ use App\Repository\PageStatiqueRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as Serializer;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=PageStatiqueRepository::class)
+ *
+ *
  */
 class PageStatique extends Page
 {
 
     /**
-     * @var ArrayCollection
+     * @var Collection
      * @ORM\OneToMany(targetEntity="Paragraphe", mappedBy="page")
+     *
+     * @Serializer\Expose()
      */
-    private ArrayCollection $paragraphes;
+    private Collection $paragraphes;
 
     public function __construct()
     {

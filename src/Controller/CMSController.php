@@ -2,26 +2,32 @@
 
 namespace App\Controller;
 
+use App\Entity\Page;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
-use Symfony\Component\HttpFoundation\Response;
+use FOS\RestBundle\Controller\Annotations as Rest;
+use FOS\RestBundle\View\View;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Class CMSController
  * @package App\Controller
  *
- * @Route("/page",name="page")
+ * @Route("/api/page",name="page")
+ *
  */
 class CMSController extends AbstractFOSRestController
 {
+
     /**
-     * @return Response
+     * @param Page $page
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @Rest\Get("/{page<\d+>}",name="_get")
+     * @Security("is_granted('view',page)")
      */
-    public function index() : Response
-    {
-        return $this->json([
-            'message' => 'Welcome to your new controller!',
-            'path' => 'src/Controller/CMSController.php',
-        ]);
+    public function getPage(Page $page){
+        return $this->handleView($this->view($this->getDoctrine()->getManager()->getRepository(get_class($page))->getCompletePage($page->getId())));
     }
+
 }

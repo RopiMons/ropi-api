@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Interfaces\Positionnable;
 use App\Repository\PageRepository;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as Serializer;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -18,6 +19,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @UniqueEntity(fields={"titreMenu"}, message="Ce titre est déjà présent dans le menu")
  *
+ * @Serializer\ExclusionPolicy("all")
+ *
  */
 abstract class Page implements Positionnable
 {
@@ -25,6 +28,7 @@ abstract class Page implements Positionnable
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Serializer\Expose()
      */
     private ?int $id;
 
@@ -36,6 +40,7 @@ abstract class Page implements Positionnable
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\Length(min="3", max="25")
+     * @Serializer\Expose()
      *
      */
     private ?string $titreMenu;

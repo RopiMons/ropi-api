@@ -4,6 +4,8 @@ namespace App\Repository;
 
 use App\Entity\PageStatique;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -19,32 +21,26 @@ class PageStatiqueRepository extends ServiceEntityRepository
         parent::__construct($registry, PageStatique::class);
     }
 
-    // /**
-    //  * @return PageStatique[] Returns an array of PageStatique objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+    /**
+     * @param int $idPage
+     * @return null|PageStatique
+     */
+    public function getCompletePage(int $idPage) : ?PageStatique{
+        try {
+            return $this
+                ->createQueryBuilder('page')
+                ->select(['page', 'paragraphes'])
+                ->leftJoin('page.paragraphes', 'paragraphes')
+                ->orderBy('paragraphes.position', 'ASC')
+                ->where('page.id = :pageId')
+                ->setParameter('pageId', $idPage)
+                ->getQuery()
+                ->getSingleResult();
+        } catch (NoResultException $e) {
+            return null;
+        } catch (NonUniqueResultException $e) {
+            return null;
+        }
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?PageStatique
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }
