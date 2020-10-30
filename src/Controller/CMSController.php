@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Page;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
-use FOS\RestBundle\View\View;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -23,7 +22,7 @@ class CMSController extends AbstractFOSRestController
      * @param Page $page
      * @return \Symfony\Component\HttpFoundation\Response
      *
-     * @Rest\Get("/{page<\d+>}",name="_get")
+     * @Rest\Get("/{slug}",name="_get")
      * @Security("is_granted('view',page)")
      */
     public function getPage(Page $page){

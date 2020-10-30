@@ -29,7 +29,6 @@ abstract class Page implements Positionnable
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Serializer\Expose()
      */
     private ?int $id;
 
