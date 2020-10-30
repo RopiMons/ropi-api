@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Interfaces\Positionnable;
 use App\Repository\PageRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use JMS\Serializer\Annotation as Serializer;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -44,6 +45,14 @@ abstract class Page implements Positionnable
      *
      */
     private ?string $titreMenu;
+
+    /**
+     * @var string|null
+     * @ORM\Column(type="string", length=156, unique=true)
+     * @Gedmo\Slug(fields={"titreMenu"}, unique=true)
+     * @Serializer\Expose()
+     */
+    private ?string $slug;
 
     /**
      * @ORM\Column(type="boolean")
@@ -87,6 +96,18 @@ abstract class Page implements Positionnable
     public function setIsActif(bool $isActif): self
     {
         $this->isActif = $isActif;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }
