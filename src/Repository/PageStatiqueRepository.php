@@ -29,11 +29,14 @@ class PageStatiqueRepository extends ServiceEntityRepository
         try {
             return $this
                 ->createQueryBuilder('page')
-                ->select(['page', 'paragraphes'])
+                ->select(['page', 'paragraphes','categorie'])
                 ->leftJoin('page.paragraphes', 'paragraphes')
+                ->leftJoin('page.categorie','categorie')
                 ->orderBy('paragraphes.position', 'ASC')
                 ->where('page.id = :pageId')
+                ->andWhere('page.isActif = :true')
                 ->setParameter('pageId', $idPage)
+                ->setParameter('true',true)
                 ->getQuery()
                 ->getSingleResult();
         } catch (NoResultException $e) {

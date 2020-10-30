@@ -28,6 +28,7 @@ class Paragraphe implements Positionnable
     /**
      * @ORM\Column(type="string", length=255)
      * @Serializer\Expose()
+     * @Serializer\Groups({"page_complete"})
      */
     private ?string $titre;
 
@@ -39,12 +40,14 @@ class Paragraphe implements Positionnable
     /**
      * @ORM\Column(type="datetime")
      * @Serializer\Expose()
+     * @Serializer\Groups({"page_complete"})
      */
     private ?\DateTimeInterface $lastUpdate;
 
     /**
      * @ORM\Column(type="datetime")
      * @Serializer\Expose()
+     * @Serializer\Groups({"page_complete"})
      */
     private ?\DateTimeInterface $createdAt;
 
@@ -56,6 +59,7 @@ class Paragraphe implements Positionnable
     /**
      * @ORM\Column(type="text")
      * @Serializer\Expose()
+     * @Serializer\Groups({"page_complete"})
      */
     private ?string $text;
 

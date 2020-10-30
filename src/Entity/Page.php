@@ -20,8 +20,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @UniqueEntity(fields={"titreMenu"}, message="Ce titre est déjà présent dans le menu")
  *
- * @Serializer\ExclusionPolicy("all")
- *
+ * @Serializer\ExclusionPolicy("none")
+ * @Serializer\Exclude(if="!object.getIsActif()")
  */
 abstract class Page implements Positionnable
 {
@@ -29,18 +29,20 @@ abstract class Page implements Positionnable
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Serializer\Exclude()
      */
     private ?int $id;
 
     /**
      * @ORM\Column(type="integer")
+     * @Serializer\Exclude()
      */
     private ?int $position;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\Length(min="3", max="25")
-     * @Serializer\Expose()
+     * @Serializer\Groups({"page_complete","page_reduite"})
      *
      */
     private ?string $titreMenu;
@@ -49,14 +51,25 @@ abstract class Page implements Positionnable
      * @var string|null
      * @ORM\Column(type="string", length=156, unique=true)
      * @Gedmo\Slug(fields={"titreMenu"}, unique=true)
-     * @Serializer\Expose()
+     *
+     * @Serializer\Groups({"page_complete","page_reduite"})
      */
     private ?string $slug;
 
     /**
      * @ORM\Column(type="boolean")
+     *
+     * @Serializer\Exclude()
      */
     private ?bool $isActif;
+
+    /**
+     * @var Categorie|null
+     * @ORM\ManyToOne(targetEntity="App\Entity\Categorie", inversedBy="pages")
+     *
+     * @Serializer\Exclude()
+     */
+    private ?Categorie $categorie;
 
     public function getId(): ?int
     {
@@ -109,5 +122,33 @@ abstract class Page implements Positionnable
         $this->slug = $slug;
 
         return $this;
+    }
+
+    public function getCategorie(): ?Categorie
+    {
+        return $this->categorie;
+    }
+
+    public function setCategorie(?Categorie $categorie): self
+    {
+        $this->categorie = $categorie;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     *
+     * @Serializer\VirtualProperty()
+     * @Serializer\Groups({"page_complete"})
+     */
+    public function getCategorieName() : ?string{
+
+        if(null !== $this->getCategorie()){
+            return $this->getCategorie()->getNom();
+        }
+
+        return null;
+
     }
 }

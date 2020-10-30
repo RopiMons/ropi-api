@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Categorie;
 use App\Entity\PageStatique;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -15,12 +16,14 @@ class PageStatiqueFixtures extends Fixture
             'Page 1' => [
                 'position' => 1,
                 'isActif' => true,
-                'titreMenu' => 'Le ropi, mode d\'emploi'
+                'titreMenu' => 'Fonctionnement',
+                'categorie' => $this->getReference('A propos')
             ],
             'Page 2' => [
                 'position' => 2,
                 'isActif' => true,
-                'titreMenu' => 'Ecouler ses ropis'
+                'titreMenu' => 'Ecouler ses ropis',
+                'categorie' => $this->getReference('A propos')
             ]
         ];
 
@@ -35,5 +38,12 @@ class PageStatiqueFixtures extends Fixture
         }
 
         $manager->flush();
+    }
+
+    public function getDependencies()
+    {
+        return array(
+            Categorie::class
+        );
     }
 }

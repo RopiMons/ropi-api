@@ -12,7 +12,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * @ORM\Entity(repositoryClass=PageStatiqueRepository::class)
  *
- *
  */
 class PageStatique extends Page
 {
@@ -21,7 +20,7 @@ class PageStatique extends Page
      * @var Collection
      * @ORM\OneToMany(targetEntity="Paragraphe", mappedBy="page")
      *
-     * @Serializer\Expose()
+     * @Serializer\Groups({"page_complete"})
      */
     private Collection $paragraphes;
 

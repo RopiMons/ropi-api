@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Categorie;
 use App\Entity\Page;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
@@ -12,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
  * Class CMSController
  * @package App\Controller
  *
- * @Route("/api/page",name="page")
+ * @Route("/api",name="page_")
  *
  */
 class CMSController extends AbstractFOSRestController
@@ -20,13 +21,23 @@ class CMSController extends AbstractFOSRestController
 
     /**
      * @param Page $page
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return \FOS\RestBundle\View\View
      *
-     * @Rest\Get("/{slug}",name="_get")
-     * @Security("is_granted('view',page)")
+     * @Rest\Get("/page/{slug}",name="get")
+     * @Rest\View(serializerGroups={"page_complete"})
      */
     public function getPage(Page $page){
-        return $this->handleView($this->view($this->getDoctrine()->getManager()->getRepository(get_class($page))->getCompletePage($page->getId())));
+        return $this->view($this->getDoctrine()->getManager()->getRepository(get_class($page))->getCompletePage($page->getId()));
+    }
+
+
+    /**
+     * @Rest\Get("/menu", name="menu")
+     * @Rest\View(serializerGroups={"Default","pages"={"page_reduite"}})
+     *
+     */
+    public function getMenu(){
+        return $this->view($this->getDoctrine()->getManager()->getRepository(Categorie::class)->getStructuredMenu());
     }
 
 }
