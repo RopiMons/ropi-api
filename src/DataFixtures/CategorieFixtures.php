@@ -3,7 +3,6 @@
 namespace App\DataFixtures;
 
 use App\Entity\Categorie;
-use App\Entity\PageStatique;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 

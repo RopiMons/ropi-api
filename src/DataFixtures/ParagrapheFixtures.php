@@ -4,9 +4,10 @@ namespace App\DataFixtures;
 
 use App\Entity\Paragraphe;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
-class ParagrapheFixtures extends Fixture
+class ParagrapheFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager)
     {

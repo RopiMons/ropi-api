@@ -5,9 +5,10 @@ namespace App\DataFixtures;
 use App\Entity\Categorie;
 use App\Entity\PageStatique;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
-class PageStatiqueFixtures extends Fixture
+class PageStatiqueFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
@@ -43,7 +44,7 @@ class PageStatiqueFixtures extends Fixture
     public function getDependencies()
     {
         return array(
-            Categorie::class
+            CategorieFixtures::class
         );
     }
 }
