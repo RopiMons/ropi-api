@@ -4,9 +4,12 @@ namespace App\Entity;
 
 use App\Repository\PaysRepository;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
  * @ORM\Entity(repositoryClass=PaysRepository::class)
+ *
+ * @Serializer\ExclusionPolicy("all")
  */
 class Pays
 {
@@ -19,6 +22,8 @@ class Pays
 
     /**
      * @ORM\Column(type="string", length=255)
+     *
+     * @Serializer\Expose()
      */
     private $nom;
 
@@ -29,6 +34,8 @@ class Pays
 
     /**
      * @ORM\Column(type="string", length=10)
+     *
+     * @Serializer\Expose()
      */
     private $nomCourt;
 

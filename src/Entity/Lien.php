@@ -4,9 +4,12 @@ namespace App\Entity;
 
 use App\Repository\LienRepository;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
  * @ORM\Entity(repositoryClass=LienRepository::class)
+ *
+ * @Serializer\ExclusionPolicy("all")
  */
 class Lien
 {
@@ -14,11 +17,14 @@ class Lien
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     *
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     *
+     * @Serializer\Expose()
      */
     private $url;
 
@@ -34,6 +40,8 @@ class Lien
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     *
+     * @Serializer\Expose()
      */
     private $commentaire;
 

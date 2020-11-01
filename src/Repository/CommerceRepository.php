@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Adresse;
 use App\Entity\Commerce;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -17,6 +18,27 @@ class CommerceRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Commerce::class);
+    }
+
+    public function getCommerces(){
+        return
+            $this
+                ->createQueryBuilder('commerces')
+                ->select(['commerces','adresses','pays','ville','liens'])
+                ->leftJoin('commerces.adresses','adresses')
+                ->join('adresses.pays','pays')
+                ->join('adresses.ville','ville')
+                ->leftJoin('commerces.liens','liens')
+                ->where('commerces.visible = :true')
+                ->andWhere('adresses.actif = :true')
+                ->andWhere('liens.isSuspicious = :false')
+                ->andWhere('adresses.typeAdresse = :commerce')
+                ->setParameter('true',true)
+                ->setParameter('false',false)
+                ->setParameter('commerce',Adresse::COMMERCE)
+                ->getQuery()
+                ->execute()
+            ;
     }
 
     // /**

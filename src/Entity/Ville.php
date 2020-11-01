@@ -4,9 +4,12 @@ namespace App\Entity;
 
 use App\Repository\VilleRepository;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
  * @ORM\Entity(repositoryClass=VilleRepository::class)
+ *
+ * @Serializer\ExclusionPolicy("all")
  */
 class Ville
 {
@@ -19,11 +22,15 @@ class Ville
 
     /**
      * @ORM\Column(type="string", length=10)
+     *
+     * @Serializer\Expose()
      */
     private $codePostal;
 
     /**
      * @ORM\Column(type="string", length=100)
+     *
+     * @Serializer\Expose()
      */
     private $ville;
 

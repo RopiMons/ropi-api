@@ -6,10 +6,13 @@ use App\Repository\CommerceRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Driver\File;
+use JMS\Serializer\Annotation as Serializer;
 use Symfony\Component\Validator\Constraints\Collection;
 
 /**
  * @ORM\Entity(repositoryClass=CommerceRepository::class)
+ *
+ * @Serializer\ExclusionPolicy("all")
  */
 class Commerce
 {
@@ -17,74 +20,102 @@ class Commerce
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     *
+     * @Serializer\Expose()
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=150)
+     *
+     * @Serializer\Expose()
      */
     private $nom;
 
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     *
+     * @Serializer\Expose()
      */
     private $slogan;
 
     /**
      * @ORM\Column(type="string", length=7, nullable=true)
+     *
+     * @Serializer\Expose()
      */
     private $textColor;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     *
+     * @Serializer\Expose()
      */
     private $logo;
 
     /**
      * @ORM\Column(type="boolean")
+     *
      */
     private $visible;
 
     /**
      * @ORM\Column(type="datetime")
+     *
+     * @Serializer\Expose()
+     *
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="datetime")
+     *
+     * @Serializer\Expose()
      */
     private $updateAt;
 
     /**
      * @ORM\Column(type="float", nullable=true)
+     *
+     * @Serializer\Expose()
      */
     private $lat;
 
     /**
      * @ORM\Column(type="float", nullable=true)
+     *
+     * @Serializer\Expose()
      */
     private $lon;
 
     /**
      * @var Collection
      * @ORM\OneToMany(targetEntity="App\Entity\Lien", mappedBy="commerce")
+     *
+     * @Serializer\Expose()
      */
     private $liens;
 
     /**
      * @var Collection
      * @ORM\OneToMany(targetEntity="App\Entity\Adresse", mappedBy="commerce")
+     *
+     * @Serializer\Expose()
      */
     private $adresses;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     *
+     * @Serializer\Expose()
      */
     private $bgImage;
 
     /**
      * @ORM\Column(type="boolean")
+     *
+     * @Serializer\Expose()
      */
     private $isComptoire;
 

@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
  * Class CMSController
  * @package App\Controller
  *
- * @Route("/api",name="page_")
+ * @Route(name="page_")
  *
  */
 class CMSController extends AbstractFOSRestController

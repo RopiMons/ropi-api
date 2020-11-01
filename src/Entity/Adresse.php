@@ -4,9 +4,14 @@ namespace App\Entity;
 
 use App\Repository\AdresseRepository;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
  * @ORM\Entity(repositoryClass=AdresseRepository::class)
+ *
+ * @Serializer\Exclude(if="object.getTypeAdresse()!='commerce' || !object.getActif()")
+ * @Serializer\ExclusionPolicy("all")
+ *
  */
 class Adresse
 {
@@ -24,6 +29,8 @@ class Adresse
 
     /**
      * @ORM\Column(type="string", length=255)
+     *
+     * @Serializer\Expose()
      */
     private $rue;
 
@@ -34,23 +41,31 @@ class Adresse
 
     /**
      * @ORM\Column(type="string", length=10)
+     *
+     * @Serializer\Expose()
      */
     private $numero;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     *
+     * @Serializer\Expose()
      */
     private $complement;
 
     /**
      * @var Ville
      * @ORM\ManyToOne(targetEntity="App\Entity\Ville")
+     *
+     * @Serializer\Expose()
      */
     private $ville;
 
     /**
      * @var Pays
      * @ORM\ManyToOne(targetEntity="App\Entity\Pays")
+     *
+     * @Serializer\Expose()
      */
     private $pays;
 
