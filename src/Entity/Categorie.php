@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Constraints\Collection;
 
 /**
@@ -30,6 +31,7 @@ class Categorie implements Positionnable
     /**
      * @ORM\Column(type="string", length=255)
      * @Serializer\Expose()
+     * @Assert
      */
     private $nom;
 

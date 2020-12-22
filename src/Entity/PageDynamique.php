@@ -27,4 +27,9 @@ class PageDynamique extends Page
 
         return $this;
     }
+
+    public function getType() : string
+    {
+        return 'page_dynamique';
+    }
 }

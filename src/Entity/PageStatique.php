@@ -59,4 +59,8 @@ class PageStatique extends Page
         return $this;
     }
 
+    public function getType() : string
+    {
+        return 'page_statique';
+    }
 }

@@ -63,6 +63,8 @@ abstract class Page implements Positionnable
      */
     private ?bool $isActif;
 
+     abstract public function getType() : string;
+
     /**
      * @var Categorie|null
      * @ORM\ManyToOne(targetEntity="App\Entity\Categorie", inversedBy="pages")

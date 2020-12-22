@@ -173,4 +173,8 @@ class Paragraphe implements Positionnable
     function onPreUpdate(){
         $this->setLastUpdate(new \DateTime());
     }
+
+    function isActif() :bool{
+        return ($this->publicationDate !== null && $this->publicationDate > new \DateTime()) ? false : $this->page->getIsActif();
+    }
 }

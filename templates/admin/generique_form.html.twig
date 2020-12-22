@@ -1,0 +1,10 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block title %}
+{% if titre is defined %}{{ titre }}{% else %}{{ parent() }}{% endif %}
+{% endblock %}
+
+{% block body %}
+    {% if titre is defined %}<h1>{{ titre }}</h1>{% endif %}
+    {{ form(form) }}
+{% endblock  %}

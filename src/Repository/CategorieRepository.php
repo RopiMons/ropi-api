@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Categorie;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -19,7 +20,7 @@ class CategorieRepository extends ServiceEntityRepository
         parent::__construct($registry, Categorie::class);
     }
 
-    public function getStructuredMenu(){
+    private function getPageLevelStructuredMenu() : QueryBuilder{
         return $this
             ->createQueryBuilder("menu")
             ->select(["menu","pages","enfants"])
@@ -29,6 +30,11 @@ class CategorieRepository extends ServiceEntityRepository
             ->orderBy("pages.position","ASC")
             ->addOrderBy("menu.position","ASC")
             ->setParameter('true',true)
+            ;
+    }
+
+    public function getStructuredMenu(){
+        return $this->getPageLevelStructuredMenu()
             ->getQuery()
             ->execute()
             ;

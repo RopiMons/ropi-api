@@ -1,0 +1,135 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block body %}
+    <div class="row col h1">
+        <h1>Gestion des pages disponibles</h1>
+    </div>
+    <div class="row">
+        <div class="col-sm">
+            <h2>
+                Actions d'administration possibles
+            </h2>
+            <p>
+
+                <a href ="{{ path('admin_cms_add_categorie') }}"><i class="fas fa-plus"></i> Ajouter une catégorie</a>
+                <br /><a href ="#"><i class="fas fa-plus"></i> Ajouter une page</a>
+
+            </p>
+            <h2>Légende</h2>
+            <h3>Actions</h3>
+            <i class="fas fa-arrow-up"></i>  : Monter la page/catégorie<br />
+            <i class="fas fa-arrow-down" aria-hidden="true"></i> : Descendre la page/catégorie<br />
+            <i class="far fa-trash-alt" aria-hidden="true"></i>  : Supprimer la page/catégorie<br />
+            <i class="fas fa-pencil-alt"></i> : Modifier la page/catégorie<br />
+
+            <h3>Etats</h3>
+            <i class="fas fa-cogs" aria-hidden="true"></i> : Page dynamique<br />
+            <i class="far fa-eye-slash"></i> : Page non-visible<br />
+            <i class="far fa-eye"></i> : Page visible<br />
+            <i class="fas fa-check"></i> : Page active<br />
+            <i class="fas fa-ban"></i> : Page désactivée<br />
+        </div>
+        <div class="col-sm">
+            <h2>Structure du site</h2>
+            <table class="table">
+                {% for categorie in categories %}
+
+                    {% set sizePage = categorie.pages|length %}
+                    <tr>
+                        <td colspan="3">
+                            <h2>
+                                <a href = "#" >{{ categorie.nom|capitalize }}</a>
+                                {% if categorie.position != 1 %}
+                                    <a href="#"><i class="fas fa-arrow-up"></i></a>
+                                {% endif %}
+                                {% if categorie.position != categories|length %}
+                                    <a href="#"><i class="fas fa-arrow-down"></i></a>
+                                {% endif %}
+                                <a href="#"><i class="far fa-trash-alt"></i></a>
+                            </h2>
+                        </td>
+                    </tr>
+                    {% if categorie.pages|length > 0 %}
+                        {% for page in categorie.pages %}
+                            <tr>
+                                <td scope="row">
+                                    {% if page.type != "page_statique" %}
+                                        <i class="fas fa-cogs"></i>
+                                    {% endif %}
+                                    {{ page.titreMenu }}
+                                </td>
+                                <td>
+                                    <a href="#">
+                                        {% if page.isActif %}
+                                            <i class="fas fa-check"></i>
+                                        {% else %}
+                                            <i class="fas fa-ban"></i>
+                                        {% endif %}
+                                    </a>
+                                </td>
+                                <td>
+                                    {% if page.position != 1 %}
+                                        <a href="#"><i class="fas fa-arrow-up"></i></a>
+                                    {% else %}
+                                        <i class="fas fa-arrow-up"></i>
+                                    {% endif %}
+                                    {% if page.position != categorie.pages|length %}
+                                        <a href="#"><i class="fas fa-arrow-down"></i></a>
+                                    {% else %}
+                                        <i class="fas fa-arrow-down"></i>
+                                    {% endif %}
+
+                                    {% if page.isActif %}
+                                        {% if page.route is defined  and page.route != "" %} <a href="{% if page.parametres %}{{ path(page.route, page.parametres) }}{% else %}{{ path(page.route) }}{% endif %}" target="_blank" ><i class="far fa-eye"></i></a> {% endif %}
+                                    {% else %}
+                                        <i class="far fa-eye-slash"></i>
+                                    {% endif %}
+
+                                    <a href="#"><i class="fas fa-pencil-alt"></i></a>
+                                    {% if page.type == "page_statique" %}
+                                        <a href="#" aria-hidden="true"><i class="far fa-trash-alt" aria-hidden="true"></i></a>
+                                    {% else %}
+                                        <i class="far fa-trash-alt"></i>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {%for paragraphe in page.paragraphes %}
+                                <tr>
+                                    <td scope="row">-> {{ paragraphe.titre }}</td>
+                                    <td>
+                                        {% if paragraphe.isActif %}
+                                            <i class="fas fa-check"></i>
+                                        {% else %}
+                                            <i class="fas fa-ban"></i>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if paragraphe.position !=1 %}
+                                            <a href="#"><i class="fas fa-arrow-up"></i></a>
+                                        {% else %}
+                                            <i class="fas fa-arrow-up"></i>
+                                        {% endif %}
+                                        {% if paragraphe.position  != page.paragraphes|length %}
+                                            <a href="#"><i class="fas fa-arrow-down"></i></a>
+                                        {% else %}
+                                            <i class="fas fa-arrow-down"></i>
+                                        {% endif %}
+                                        <a href="#"><i class="fas fa-pencil-alt"></i></a>
+                                        <a href="#"><i class="far fa-trash-alt"></i></a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="3"><p class="alert alert-warning">Il n'y a pas de pages dans cette catégorie</p></td>
+                        </tr>
+                    {% endif %}
+
+                {% endfor %}
+            </table>
+        </div>
+
+    </div>
+
+{% endblock %}
