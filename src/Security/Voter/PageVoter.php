@@ -17,17 +17,17 @@ class PageVoter extends Voter
             && $subject instanceof Page;
     }
 
-    protected function voteOnAttribute($attribute, $subject, TokenInterface $token)
+    protected function voteOnAttribute($attribute, $subject, TokenInterface $token): bool
     {
         switch ($attribute) {
             case self::VIEW:
-                return $this->canView();
+                return $this->canView($subject);
         }
 
         return false;
     }
 
-    private function canView(){
-        return true;
+    private function canView(Page $page){
+        return $page->getIsActif();
     }
 }

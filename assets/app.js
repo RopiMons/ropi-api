@@ -7,8 +7,8 @@
 
 // any CSS you import will output into a single css file (app.css in this case)
 import './styles/app.scss';
-import '@fortawesome/fontawesome-free/scss/fontawesome.scss';
-import '@fortawesome/fontawesome-free/js/all.min';
+//import '@fortawesome/fontawesome-free/scss/fontawesome.scss';
+//import '@fortawesome/fontawesome-free/js/all.min';
 //import 'bootstrap';
 //import bsCustomFileInput from 'bs-custom-file-input';
 //import ReactDOM from 'react-dom';

@@ -4,13 +4,18 @@ namespace App\Entity;
 
 use App\Repository\AdresseRepository;
 use Doctrine\ORM\Mapping as ORM;
-use JMS\Serializer\Annotation as Serializer;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=AdresseRepository::class)
  *
- * @Serializer\Exclude(if="object.getTypeAdresse()!='commerce' || !object.getActif()")
- * @Serializer\ExclusionPolicy("all")
+ * @ApiResource(
+ *     normalizationContext={"groups"={"read:adresse"}},
+ *     collectionOperations={},
+ *     itemOperations={"get"}
+ * )
+ * @todo dès que possible, il faut faire un is_granted('view_commerce',object). Pour l'instant le NullToken n'est pas recunnu par API_PLATEFORME
  *
  */
 class Adresse
@@ -24,13 +29,15 @@ class Adresse
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     *
+     * @Groups({"read:adresse"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      *
-     * @Serializer\Expose()
+     * @Groups({"read:adresse"})
      */
     private $rue;
 
@@ -42,14 +49,14 @@ class Adresse
     /**
      * @ORM\Column(type="string", length=10)
      *
-     * @Serializer\Expose()
+     * @Groups({"read:adresse"})
      */
     private $numero;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      *
-     * @Serializer\Expose()
+     * @Groups({"read:adresse"})
      */
     private $complement;
 
@@ -57,7 +64,7 @@ class Adresse
      * @var Ville
      * @ORM\ManyToOne(targetEntity="App\Entity\Ville")
      *
-     * @Serializer\Expose()
+     * @Groups({"read:adresse"})
      */
     private $ville;
 
@@ -65,7 +72,7 @@ class Adresse
      * @var Pays
      * @ORM\ManyToOne(targetEntity="App\Entity\Pays")
      *
-     * @Serializer\Expose()
+     * @Groups({"read:adresse"})
      */
     private $pays;
 

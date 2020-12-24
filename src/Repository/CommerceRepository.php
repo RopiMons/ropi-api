@@ -20,25 +20,36 @@ class CommerceRepository extends ServiceEntityRepository
         parent::__construct($registry, Commerce::class);
     }
 
-    public function getCommerces(){
-        return
-            $this
-                ->createQueryBuilder('commerces')
-                ->select(['commerces','adresses','pays','ville','liens'])
-                ->leftJoin('commerces.adresses','adresses')
-                ->join('adresses.pays','pays')
-                ->join('adresses.ville','ville')
-                ->leftJoin('commerces.liens','liens')
-                ->where('commerces.visible = :true')
-                ->andWhere('adresses.actif = :true')
-                ->andWhere('liens.isSuspicious = :false')
-                ->andWhere('adresses.typeAdresse = :commerce')
-                ->setParameter('true',true)
-                ->setParameter('false',false)
-                ->setParameter('commerce',Adresse::COMMERCE)
-                ->getQuery()
-                ->execute()
-            ;
+    public function getCommerces(?int $id = null){
+        $queryBuilder = $this
+            ->createQueryBuilder('commerces')
+            ->select(['commerces','adresses','pays','ville','liens'])
+            ->leftJoin('commerces.adresses','adresses')
+            ->join('adresses.pays','pays')
+            ->join('adresses.ville','ville')
+            ->leftJoin('commerces.liens','liens')
+            ->where('commerces.visible = :true')
+            ->andWhere('adresses.actif = :true')
+            ->andWhere('liens.isSuspicious = :false')
+            ->andWhere('adresses.typeAdresse = :commerce')
+            ->setParameter('true',true)
+            ->setParameter('false',false)
+            ->setParameter('commerce',Adresse::COMMERCE)
+        ;
+
+        if(null!==$id){
+            try {
+                return $queryBuilder
+                    ->andWhere('commerces.id = :id')
+                    ->setParameter('id', $id)
+                    ->getQuery()
+                    ->getSingleResult();
+            }catch (\Exception $e){
+                return null;
+            }
+        }
+
+        return $queryBuilder->getQuery()->execute();
     }
 
     // /**

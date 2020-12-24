@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Interfaces\Positionnable;
 use App\Repository\CategorieRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use JMS\Serializer\Annotation as Serializer;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints\Collection;
 
 /**
@@ -16,7 +16,17 @@ use Symfony\Component\Validator\Constraints\Collection;
  * @UniqueEntity(fields={"nom"}, message="Cette catégorie est déjà présente")
  * @UniqueEntity(fields={"parent","position"}, message="Cette possition est déjà occupée")
  *
- * @Serializer\ExclusionPolicy("all")
+ * @ApiResource(
+ *     normalizationContext={"groups"={"read:menu","read:page:short"}},
+ *     itemOperations={
+ *          "get"
+ *      },
+ *     collectionOperations={
+ *          "get" = {
+ *              "path"="/menu"
+ *          }
+ *     }
+ * )
  */
 class Categorie implements Positionnable
 {
@@ -24,14 +34,12 @@ class Categorie implements Positionnable
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Serializer\Expose()
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Serializer\Expose()
-     * @Assert
+     * @Groups({"read:menu"})
      */
     private $nom;
 
@@ -55,13 +63,14 @@ class Categorie implements Positionnable
     /**
      * @var Collection
      * @ORM\OneToMany(targetEntity="App\Entity\Page", mappedBy="categorie")
-     * @Serializer\Expose()
+     * @Groups({"read:menu"})
      */
     private $pages;
 
     /**
      * @ORM\Column(type="string", length=50, nullable=true)
-     * @Serializer\Expose()
+     * @Groups({"read:menu"})
+     * @Groups({"read:menu"})
      */
     private $faIcone;
 

@@ -2,17 +2,24 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\CommerceRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Driver\File;
-use JMS\Serializer\Annotation as Serializer;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints\Collection;
 
 /**
  * @ORM\Entity(repositoryClass=CommerceRepository::class)
  *
- * @Serializer\ExclusionPolicy("all")
+ * @ApiResource(
+ *     normalizationContext={"groups"={"read:commerce","read:adresse"}},
+ *     collectionOperations={"get"},
+ *     itemOperations={
+ *     "get" = {"security"="is_granted('view',object)"}
+ *      }
+ * )
+ * @todo dès que possible, il faut faire un is_granted('view',object). Pour l'instant le NullToken n'est pas recunnu par API_PLATEFORME
  */
 class Commerce
 {
@@ -21,14 +28,14 @@ class Commerce
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      *
-     * @Serializer\Expose()
+     * @Groups({"read:commerce"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=150)
      *
-     * @Serializer\Expose()
+     * @Groups({"read:commerce"})
      */
     private $nom;
 
@@ -36,56 +43,54 @@ class Commerce
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      *
-     * @Serializer\Expose()
+     * @Groups({"read:commerce"})
      */
     private $slogan;
 
     /**
      * @ORM\Column(type="string", length=7, nullable=true)
      *
-     * @Serializer\Expose()
+     * @Groups({"read:commerce"})
      */
     private $textColor;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      *
-     * @Serializer\Expose()
+     * @Groups({"read:commerce"})
      */
     private $logo;
 
     /**
      * @ORM\Column(type="boolean")
-     *
      */
     private $visible;
 
     /**
      * @ORM\Column(type="datetime")
      *
-     * @Serializer\Expose()
-     *
+     * @Groups({"read:commerce"})
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="datetime")
      *
-     * @Serializer\Expose()
+     * @Groups({"read:commerce"})
      */
     private $updateAt;
 
     /**
      * @ORM\Column(type="float", nullable=true)
      *
-     * @Serializer\Expose()
+     * @Groups({"read:commerce"})
      */
     private $lat;
 
     /**
      * @ORM\Column(type="float", nullable=true)
      *
-     * @Serializer\Expose()
+     * @Groups({"read:commerce"})
      */
     private $lon;
 
@@ -93,7 +98,7 @@ class Commerce
      * @var Collection
      * @ORM\OneToMany(targetEntity="App\Entity\Lien", mappedBy="commerce")
      *
-     * @Serializer\Expose()
+     * @Groups({"read:commerce"})
      */
     private $liens;
 
@@ -101,21 +106,21 @@ class Commerce
      * @var Collection
      * @ORM\OneToMany(targetEntity="App\Entity\Adresse", mappedBy="commerce")
      *
-     * @Serializer\Expose()
+     * @Groups({"read:adresse"})
      */
     private $adresses;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      *
-     * @Serializer\Expose()
+     * @Groups({"read:commerce"})
      */
     private $bgImage;
 
     /**
      * @ORM\Column(type="boolean")
      *
-     * @Serializer\Expose()
+     * @Groups({"read:commerce"})
      */
     private $isComptoire;
 

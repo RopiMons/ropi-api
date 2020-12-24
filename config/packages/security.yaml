@@ -4,7 +4,7 @@ security:
             algorithm: auto
 
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
-    enable_authenticator_manager: true
+    #enable_authenticator_manager: true
     providers:
         # used to reload user from session & other features (e.g. switch_user)
         app_user_provider:
@@ -15,8 +15,10 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+
         main:
             lazy: true
+            anonymous: true
             provider: app_user_provider
             guard:
                 authenticators:
@@ -36,5 +38,6 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         #
+        - { path: ^/api, roles: PUBLIC_ACCESS }
         - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }

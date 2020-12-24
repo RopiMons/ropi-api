@@ -4,12 +4,10 @@ namespace App\Entity;
 
 use App\Repository\PaysRepository;
 use Doctrine\ORM\Mapping as ORM;
-use JMS\Serializer\Annotation as Serializer;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=PaysRepository::class)
- *
- * @Serializer\ExclusionPolicy("all")
  */
 class Pays
 {
@@ -23,7 +21,7 @@ class Pays
     /**
      * @ORM\Column(type="string", length=255)
      *
-     * @Serializer\Expose()
+     * @Groups({"read:adresse"})
      */
     private $nom;
 
@@ -35,7 +33,7 @@ class Pays
     /**
      * @ORM\Column(type="string", length=10)
      *
-     * @Serializer\Expose()
+     * @Groups({"read:adresse"})
      */
     private $nomCourt;
 
