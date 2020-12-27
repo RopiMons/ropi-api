@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
 use App\Interfaces\Positionnable;
 use App\Repository\PageRepository;
 use Doctrine\ORM\Mapping as ORM;
@@ -20,6 +19,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\DiscriminatorMap({"dynamique"="PageDynamique", "statique"="PageStatique"})
  *
  * @UniqueEntity(fields={"titreMenu"}, message="Ce titre est déjà présent dans le menu")
+ * @UniqueEntity(fields={"position","categorie"}, message="Cette position est déjà occupée")
  *
  */
 abstract class Page implements Positionnable
@@ -33,11 +33,14 @@ abstract class Page implements Positionnable
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank()
+     * @Assert\Type(type="integer")
      */
     private ?int $position;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      * @Assert\Length(min="3", max="25")
      * @Groups({"read:page:short"})
      *
@@ -134,8 +137,7 @@ abstract class Page implements Positionnable
     /**
      * @return string|null
      *
-     * Serializer\VirtualProperty()
-     * Serializer\Groups({"page_complete"})
+     * @Groups({"read:page:full"})
      */
     public function getCategorieName() : ?string{
 

@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints\Collection;
+use App\Controller\Api\MenuController;
 
 /**
  * @ORM\Entity(repositoryClass=CategorieRepository::class)
@@ -23,7 +24,8 @@ use Symfony\Component\Validator\Constraints\Collection;
  *      },
  *     collectionOperations={
  *          "get" = {
- *              "path"="/menu"
+ *              "path"="/menu",
+ *              "controller"=MenuController::class
  *          }
  *     }
  * )
@@ -57,6 +59,8 @@ class Categorie implements Positionnable
     /**
      * @var Collection
      * @ORM\OneToMany(targetEntity="App\Entity\Categorie", mappedBy="parent")
+     *
+     * @Groups({"read:menu"})
      */
     private $enfants;
 
@@ -69,7 +73,6 @@ class Categorie implements Positionnable
 
     /**
      * @ORM\Column(type="string", length=50, nullable=true)
-     * @Groups({"read:menu"})
      * @Groups({"read:menu"})
      */
     private $faIcone;
@@ -139,6 +142,19 @@ class Categorie implements Positionnable
         return $this;
     }
 
+    public function setEnfants(\Doctrine\Common\Collections\Collection $enfants): self{
+
+        $this->enfants = $enfants;
+
+        foreach ($enfants as $enfant){
+            if($enfant instanceof Categorie){
+                $enfant->setParent($this);
+            }
+        }
+
+        return $this;
+    }
+
     public function removeEnfant(Categorie $enfant): self
     {
         if ($this->enfants->removeElement($enfant)) {
@@ -190,6 +206,17 @@ class Categorie implements Positionnable
     {
         $this->faIcone = $faIcone;
 
+        return $this;
+    }
+
+    public function setPages(\Doctrine\Common\Collections\Collection $pages): self{
+        $this->pages = $pages;
+
+        foreach ($pages as $page){
+            if (get_parent_class($page) === Page::class) {
+                $page->setCategorie($this);
+            }
+        }
         return $this;
     }
 }

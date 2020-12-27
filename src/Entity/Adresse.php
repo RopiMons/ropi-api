@@ -13,9 +13,10 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ApiResource(
  *     normalizationContext={"groups"={"read:adresse"}},
  *     collectionOperations={},
- *     itemOperations={"get"}
+ *     itemOperations={
+ *          "get" = {"security"="is_granted('view_commerce',object)"}
+ *      }
  * )
- * @todo dès que possible, il faut faire un is_granted('view_commerce',object). Pour l'instant le NullToken n'est pas recunnu par API_PLATEFORME
  *
  */
 class Adresse

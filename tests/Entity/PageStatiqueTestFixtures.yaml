@@ -1,0 +1,6 @@
+App\Entity\PageStatique:
+  pageStatique1:
+    position: 1
+    titreMenu: Fonctionnement
+    slug: fonctionnement
+    isActif: true

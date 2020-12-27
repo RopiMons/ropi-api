@@ -19,8 +19,7 @@ use Symfony\Component\Validator\Constraints\Collection;
  *     "get" = {"security"="is_granted('view',object)"}
  *      }
  * )
- * @todo dès que possible, il faut faire un is_granted('view',object). Pour l'instant le NullToken n'est pas recunnu par API_PLATEFORME
- */
+*/
 class Commerce
 {
     /**

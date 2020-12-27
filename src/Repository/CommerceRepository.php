@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Adresse;
 use App\Entity\Commerce;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -24,14 +25,11 @@ class CommerceRepository extends ServiceEntityRepository
         $queryBuilder = $this
             ->createQueryBuilder('commerces')
             ->select(['commerces','adresses','pays','ville','liens'])
-            ->leftJoin('commerces.adresses','adresses')
+            ->leftJoin('commerces.adresses','adresses', Join::WITH,'adresses.actif = :true AND adresses.typeAdresse = :commerce')
             ->join('adresses.pays','pays')
             ->join('adresses.ville','ville')
-            ->leftJoin('commerces.liens','liens')
+            ->leftJoin('commerces.liens','liens', Join::WITH, 'liens.isSuspicious = :false')
             ->where('commerces.visible = :true')
-            ->andWhere('adresses.actif = :true')
-            ->andWhere('liens.isSuspicious = :false')
-            ->andWhere('adresses.typeAdresse = :commerce')
             ->setParameter('true',true)
             ->setParameter('false',false)
             ->setParameter('commerce',Adresse::COMMERCE)
