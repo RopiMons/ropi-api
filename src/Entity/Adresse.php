@@ -61,7 +61,7 @@ class Adresse
      *
      * @Groups({"read:adresse"})
      */
-    private string $complement;
+    private ?string $complement;
 
     /**
      * @var Ville
