@@ -124,11 +124,18 @@ class Commerce
      */
     private bool $isComptoir;
 
+    /**
+     * @var Collection<Personne>
+     * @ORM\ManyToMany(targetEntity="App\Entity\Personne", mappedBy="commerces")
+     */
+    private Collection $admins;
+
 
     public function __construct()
     {
         $this->liens = new ArrayCollection();
         $this->adresses = new ArrayCollection();
+        $this->admins = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -345,6 +352,33 @@ class Commerce
             if ($adress->getCommerce() === $this) {
                 $adress->setCommerce(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Personne[]
+     */
+    public function getAdmins(): Collection
+    {
+        return $this->admins;
+    }
+
+    public function addAdmin(Personne $admin): self
+    {
+        if (!$this->admins->contains($admin)) {
+            $this->admins[] = $admin;
+            $admin->addCommerce($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAdmin(Personne $admin): self
+    {
+        if ($this->admins->removeElement($admin)) {
+            $admin->removeCommerce($this);
         }
 
         return $this;

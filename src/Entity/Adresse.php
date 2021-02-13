@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\AdresseRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -82,11 +84,24 @@ class Adresse
      */
     private string $typeAdresse;
 
+
+    /**
+     * @var Collection<Personne>
+     * @ORM\ManyToMany(targetEntity="App\Entity\Personne", mappedBy="adresses")
+     */
+    private Collection $personnes;
+
+
     /**
      * @var Commerce
      * @ORM\ManyToOne(targetEntity="App\Entity\Commerce", inversedBy="adresses")
      */
     private Commerce $commerce;
+
+    public function __construct()
+    {
+        $this->personnes = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -185,6 +200,33 @@ class Adresse
     public function setCommerce(Commerce $commerce): self
     {
         $this->commerce = $commerce;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Personne[]
+     */
+    public function getPersonnes(): Collection
+    {
+        return $this->personnes;
+    }
+
+    public function addPersonne(Personne $personne): self
+    {
+        if (!$this->personnes->contains($personne)) {
+            $this->personnes[] = $personne;
+            $personne->addAdress($this);
+        }
+
+        return $this;
+    }
+
+    public function removePersonne(Personne $personne): self
+    {
+        if ($this->personnes->removeElement($personne)) {
+            $personne->removeAdress($this);
+        }
 
         return $this;
     }

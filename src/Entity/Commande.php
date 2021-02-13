@@ -49,6 +49,12 @@ class Commande
     private bool $archive;
 
     /**
+     * @var Personne
+     * @ORM\ManyToOne(targetEntity="App\Entity\Personne", inversedBy="commandes")
+     */
+    private Personne $personne;
+
+    /**
      * @var Adresse
      * @ORM\ManyToOne(targetEntity="App\Entity\Adresse")
      */
@@ -196,6 +202,20 @@ class Commande
     {
         $this->adresseDeLivraison = $adresseDeLivraison;
 
+        return $this;
+    }
+
+    /**
+     * @return Personne
+     */
+    public function getPersonne(): Personne
+    {
+        return $this->personne;
+    }
+
+    public function setPersonne(Personne $personne): self
+    {
+        $this->personne = $personne;
         return $this;
     }
 
