@@ -327,4 +327,26 @@ class Commerce
 
         return $this;
     }
+
+    public function addAdress(Adresse $adress): self
+    {
+        if (!$this->adresses->contains($adress)) {
+            $this->adresses[] = $adress;
+            $adress->setCommerce($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAdress(Adresse $adress): self
+    {
+        if ($this->adresses->removeElement($adress)) {
+            // set the owning side to null (unless already changed)
+            if ($adress->getCommerce() === $this) {
+                $adress->setCommerce(null);
+            }
+        }
+
+        return $this;
+    }
 }

@@ -5,6 +5,8 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\CommandeRepository;
 use DateTimeInterface;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -36,9 +38,32 @@ class Commande
     private DateTimeInterface $updatedAt;
 
     /**
+     * @var Statut
+     * @ORM\ManyToOne(targetEntity="App\Entity\Statut", inversedBy="commandes")
+     */
+    private Statut $statut;
+
+    /**
      * @ORM\Column(type="boolean")
      */
     private bool $archive;
+
+    /**
+     * @var Adresse
+     * @ORM\ManyToOne(targetEntity="App\Entity\Adresse")
+     */
+    private Adresse $adresseDeLivraison;
+
+    /**
+     * @var Collection<Paiement>
+     * @ORM\OneToMany(targetEntity="App\Entity\Paiement", mappedBy="commande")
+     */
+    private Collection $paiements;
+
+    public function __construct()
+    {
+        $this->paiements = new ArrayCollection();
+    }
 
     public function getCreatedAt(): ?DateTimeInterface
     {
@@ -116,6 +141,60 @@ class Commande
     public function setArchive(bool $archive): self
     {
         $this->archive = $archive;
+
+        return $this;
+    }
+
+    public function getStatut(): ?Statut
+    {
+        return $this->statut;
+    }
+
+    public function setStatut(Statut $statut): self
+    {
+        $this->statut = $statut;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Paiement[]
+     */
+    public function getPaiements(): Collection
+    {
+        return $this->paiements;
+    }
+
+    public function addPaiement(Paiement $paiement): self
+    {
+        if (!$this->paiements->contains($paiement)) {
+            $this->paiements[] = $paiement;
+            $paiement->setCommande($this);
+        }
+
+        return $this;
+    }
+
+    public function removePaiement(Paiement $paiement): self
+    {
+        if ($this->paiements->removeElement($paiement)) {
+            // set the owning side to null (unless already changed)
+            if ($paiement->getCommande() === $this) {
+                $paiement->setCommande(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getAdresseDeLivraison(): ?Adresse
+    {
+        return $this->adresseDeLivraison;
+    }
+
+    public function setAdresseDeLivraison(Adresse $adresseDeLivraison): self
+    {
+        $this->adresseDeLivraison = $adresseDeLivraison;
 
         return $this;
     }
