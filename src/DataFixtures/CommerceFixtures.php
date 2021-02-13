@@ -21,11 +21,11 @@ class CommerceFixtures extends Fixture implements DependentFixtureInterface
                 'createdAt' => new \DateTime(),
                 'updateAt' => new \DateTime(),
                 'bgImage' => 'http://ropi.be/img/ROPI_WEB_BG_BL.png',
-                'isComptoire' => false,
+                'isComptoir' => false,
                 'lat' => '50.4552629',
                 'lon' => '3.9510846',
                 'logo' => 'https://ropi.be/img/ropi_logo.png',
-                'lien' => ['Lien Ropi 1','Lien Ropi 2'],
+                'lien' => ['Lien Ropi 1', 'Lien Ropi 2'],
                 'adresse' => ['Adresse Ropi']
             ],
             'Fonds' => [
@@ -36,11 +36,11 @@ class CommerceFixtures extends Fixture implements DependentFixtureInterface
                 'createdAt' => new \DateTime(),
                 'updateAt' => new \DateTime(),
                 'bgImage' => 'http://mfs0.cdnsw.com/fs/Root/large/d1fd0-IMG_20150820_191811.jpg',
-                'isComptoire' => true,
+                'isComptoir' => true,
                 'lat' => '50.455242',
                 'lon' => '3.893146',
                 'logo' => 'http://mfs0.cdnsw.com/fs/Root/small/al5b0-logo_fcj.png',
-                'lien' => ['FD 1','FD 2'],
+                'lien' => ['FD 1', 'FD 2'],
                 'adresse' => ['Adresse Fonds']
             ]
         ];
