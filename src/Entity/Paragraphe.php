@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Interfaces\Positionnable;
 use App\Repository\ParagrapheRepository;
+use DateTime;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -42,19 +44,19 @@ class Paragraphe implements Positionnable
      *
      * @Groups({"read:page:full"})
      */
-    private ?\DateTimeInterface $lastUpdate;
+    private ?DateTimeInterface $lastUpdate;
 
     /**
      * @ORM\Column(type="datetime")
      *
      * @Groups({"read:page:full"})
      */
-    private ?\DateTimeInterface $createdAt;
+    private ?DateTimeInterface $createdAt;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private ?\DateTimeInterface $publicationDate;
+    private ?DateTimeInterface $publicationDate;
 
     /**
      * @ORM\Column(type="text")
@@ -64,10 +66,10 @@ class Paragraphe implements Positionnable
     private ?string $text;
 
     /**
-     * @var Page|null
+     * @var PageStatique|null
      * @ORM\ManyToOne(targetEntity="PageStatique", inversedBy="paragraphes")
      */
-    private ?Page $page;
+    private ?PageStatique $page;
 
     public function getId(): ?int
     {
@@ -98,36 +100,36 @@ class Paragraphe implements Positionnable
         return $this;
     }
 
-    public function getLastUpdate(): ?\DateTimeInterface
+    public function getLastUpdate(): ?DateTimeInterface
     {
         return $this->lastUpdate;
     }
 
-    public function setLastUpdate(\DateTimeInterface $lastUpdate): self
+    public function setLastUpdate(DateTimeInterface $lastUpdate): self
     {
         $this->lastUpdate = $lastUpdate;
 
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): ?DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    public function setCreatedAt(DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
 
         return $this;
     }
 
-    public function getPublicationDate(): ?\DateTimeInterface
+    public function getPublicationDate(): ?DateTimeInterface
     {
         return $this->publicationDate;
     }
 
-    public function setPublicationDate(\DateTimeInterface $publicationDate): self
+    public function setPublicationDate(DateTimeInterface $publicationDate): self
     {
         $this->publicationDate = $publicationDate;
 
@@ -162,7 +164,7 @@ class Paragraphe implements Positionnable
      * @ORM\PrePersist()
      */
     function onPrePersist(){
-        $now = new \DateTime();
+        $now = new DateTime();
         $this->setCreatedAt($now);
         $this->setLastUpdate($now);
     }
@@ -171,10 +173,10 @@ class Paragraphe implements Positionnable
      * @ORM\PreUpdate()
      */
     function onPreUpdate(){
-        $this->setLastUpdate(new \DateTime());
+        $this->setLastUpdate(new DateTime());
     }
 
     function isActif() :bool{
-        return ($this->publicationDate !== null && $this->publicationDate > new \DateTime()) ? false : $this->page->getIsActif();
+        return ($this->publicationDate !== null && $this->publicationDate > new DateTime()) ? false : $this->page->getIsActif();
     }
 }

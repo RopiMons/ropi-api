@@ -3,14 +3,14 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use App\Controller\Api\MenuController;
 use App\Interfaces\Positionnable;
 use App\Repository\CategorieRepository;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
-use Symfony\Component\Validator\Constraints\Collection;
-use App\Controller\Api\MenuController;
 
 /**
  * @ORM\Entity(repositoryClass=CategorieRepository::class)
@@ -37,24 +37,24 @@ class Categorie implements Positionnable
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"read:menu"})
      */
-    private $nom;
+    private string $nom;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $position;
+    private int $position;
 
     /**
      * @var Categorie
      * @ORM\ManyToOne(targetEntity="App\Entity\Categorie", inversedBy="enfants")
      */
-    private $parent;
+    private Categorie $parent;
 
     /**
      * @var Collection
@@ -62,20 +62,20 @@ class Categorie implements Positionnable
      *
      * @Groups({"read:menu"})
      */
-    private $enfants;
+    private Collection $enfants;
 
     /**
      * @var Collection
      * @ORM\OneToMany(targetEntity="App\Entity\Page", mappedBy="categorie")
      * @Groups({"read:menu"})
      */
-    private $pages;
+    private Collection $pages;
 
     /**
      * @ORM\Column(type="string", length=50, nullable=true)
      * @Groups({"read:menu"})
      */
-    private $faIcone;
+    private string $faIcone;
 
     public function __construct()
     {
@@ -117,7 +117,7 @@ class Categorie implements Positionnable
         return $this->parent;
     }
 
-    public function setParent(?self $parent): self
+    public function setParent(self $parent): self
     {
         $this->parent = $parent;
 
@@ -125,9 +125,9 @@ class Categorie implements Positionnable
     }
 
     /**
-     * @return \Doctrine\Common\Collections\Collection|Categorie[]
+     * @return Collection|Categorie[]
      */
-    public function getEnfants(): \Doctrine\Common\Collections\Collection
+    public function getEnfants(): Collection
     {
         return $this->enfants;
     }
@@ -142,12 +142,13 @@ class Categorie implements Positionnable
         return $this;
     }
 
-    public function setEnfants(\Doctrine\Common\Collections\Collection $enfants): self{
+    public function setEnfants(Collection $enfants): self
+    {
 
         $this->enfants = $enfants;
 
-        foreach ($enfants as $enfant){
-            if($enfant instanceof Categorie){
+        foreach ($enfants as $enfant) {
+            if ($enfant instanceof Categorie) {
                 $enfant->setParent($this);
             }
         }
@@ -168,9 +169,9 @@ class Categorie implements Positionnable
     }
 
     /**
-     * @return \Doctrine\Common\Collections\Collection|Page[]
+     * @return Collection|Page[]
      */
-    public function getPages(): \Doctrine\Common\Collections\Collection
+    public function getPages(): Collection
     {
         return $this->pages;
     }
@@ -202,17 +203,18 @@ class Categorie implements Positionnable
         return $this->faIcone;
     }
 
-    public function setFaIcone(?string $faIcone): self
+    public function setFaIcone(string $faIcone): self
     {
         $this->faIcone = $faIcone;
 
         return $this;
     }
 
-    public function setPages(\Doctrine\Common\Collections\Collection $pages): self{
+    public function setPages(Collection $pages): self
+    {
         $this->pages = $pages;
 
-        foreach ($pages as $page){
+        foreach ($pages as $page) {
             if (get_parent_class($page) === Page::class) {
                 $page->setCategorie($this);
             }

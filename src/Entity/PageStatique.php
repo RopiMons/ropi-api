@@ -17,7 +17,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     itemOperations={"put","patch",
  *          "get" = {
  *              "security"="is_granted('view',object)",
- *              "normalization_context"={"groups"={"read:page:full","read:page:short"}}
+ *              "normalization_context"={"groups"={"read:page:full","read:page:short"}},
+ *              "method"="GET",
+ *              "path"="/page_statiques/{id}"
  *          }
  *      }
  * )

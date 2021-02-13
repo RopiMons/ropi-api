@@ -15,17 +15,17 @@ class Fichier
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $lien;
+    private string $lien;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $originalName;
+    private string $originalName;
 
     public function getId(): ?int
     {

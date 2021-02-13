@@ -2,9 +2,9 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\AdresseRepository;
 use Doctrine\ORM\Mapping as ORM;
-use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
@@ -33,33 +33,33 @@ class Adresse
      *
      * @Groups({"read:adresse"})
      */
-    private $id;
+    private int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      *
      * @Groups({"read:adresse"})
      */
-    private $rue;
+    private string $rue;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private $actif;
+    private bool $actif;
 
     /**
      * @ORM\Column(type="string", length=10)
      *
      * @Groups({"read:adresse"})
      */
-    private $numero;
+    private string $numero;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      *
      * @Groups({"read:adresse"})
      */
-    private $complement;
+    private string $complement;
 
     /**
      * @var Ville
@@ -67,7 +67,7 @@ class Adresse
      *
      * @Groups({"read:adresse"})
      */
-    private $ville;
+    private Ville $ville;
 
     /**
      * @var Pays
@@ -75,18 +75,18 @@ class Adresse
      *
      * @Groups({"read:adresse"})
      */
-    private $pays;
+    private Pays $pays;
 
     /**
      * @ORM\Column(type="string", length=100)
      */
-    private $typeAdresse;
+    private string $typeAdresse;
 
     /**
      * @var Commerce
      * @ORM\ManyToOne(targetEntity="App\Entity\Commerce", inversedBy="adresses")
      */
-    private $commerce;
+    private Commerce $commerce;
 
     public function getId(): ?int
     {
@@ -134,7 +134,7 @@ class Adresse
         return $this->complement;
     }
 
-    public function setComplement(?string $complement): self
+    public function setComplement(string $complement): self
     {
         $this->complement = $complement;
 
@@ -158,7 +158,7 @@ class Adresse
         return $this->ville;
     }
 
-    public function setVille(?Ville $ville): self
+    public function setVille(Ville $ville): self
     {
         $this->ville = $ville;
 
@@ -170,7 +170,7 @@ class Adresse
         return $this->pays;
     }
 
-    public function setPays(?Pays $pays): self
+    public function setPays(Pays $pays): self
     {
         $this->pays = $pays;
 
@@ -182,7 +182,7 @@ class Adresse
         return $this->commerce;
     }
 
-    public function setCommerce(?Commerce $commerce): self
+    public function setCommerce(Commerce $commerce): self
     {
         $this->commerce = $commerce;
 

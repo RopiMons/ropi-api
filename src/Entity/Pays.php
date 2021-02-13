@@ -16,26 +16,26 @@ class Pays
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      *
      * @Groups({"read:adresse"})
      */
-    private $nom;
+    private string $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $regexCodePostal;
+    private string $regexCodePostal;
 
     /**
      * @ORM\Column(type="string", length=10)
      *
      * @Groups({"read:adresse"})
      */
-    private $nomCourt;
+    private string $nomCourt;
 
     public function getId(): ?int
     {

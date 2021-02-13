@@ -4,10 +4,11 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\CommerceRepository;
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
-use Symfony\Component\Validator\Constraints\Collection;
 
 /**
  * @ORM\Entity(repositoryClass=CommerceRepository::class)
@@ -29,14 +30,14 @@ class Commerce
      *
      * @Groups({"read:commerce"})
      */
-    private $id;
+    private int $id;
 
     /**
      * @ORM\Column(type="string", length=150)
      *
      * @Groups({"read:commerce"})
      */
-    private $nom;
+    private string $nom;
 
 
     /**
@@ -44,54 +45,54 @@ class Commerce
      *
      * @Groups({"read:commerce"})
      */
-    private $slogan;
+    private string $slogan;
 
     /**
      * @ORM\Column(type="string", length=7, nullable=true)
      *
      * @Groups({"read:commerce"})
      */
-    private $textColor;
+    private string $textColor;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      *
      * @Groups({"read:commerce"})
      */
-    private $logo;
+    private string $logo;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private $visible;
+    private bool $visible;
 
     /**
      * @ORM\Column(type="datetime")
      *
      * @Groups({"read:commerce"})
      */
-    private $createdAt;
+    private DateTimeInterface $createdAt;
 
     /**
      * @ORM\Column(type="datetime")
      *
      * @Groups({"read:commerce"})
      */
-    private $updateAt;
+    private DateTimeInterface $updateAt;
 
     /**
      * @ORM\Column(type="float", nullable=true)
      *
      * @Groups({"read:commerce"})
      */
-    private $lat;
+    private float $lat;
 
     /**
      * @ORM\Column(type="float", nullable=true)
      *
      * @Groups({"read:commerce"})
      */
-    private $lon;
+    private float $lon;
 
     /**
      * @var Collection
@@ -99,7 +100,7 @@ class Commerce
      *
      * @Groups({"read:commerce"})
      */
-    private $liens;
+    private Collection $liens;
 
     /**
      * @var Collection
@@ -107,21 +108,22 @@ class Commerce
      *
      * @Groups({"read:adresse"})
      */
-    private $adresses;
+    private Collection $adresses;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      *
      * @Groups({"read:commerce"})
      */
-    private $bgImage;
+    private string $bgImage;
 
     /**
      * @ORM\Column(type="boolean")
      *
      * @Groups({"read:commerce"})
      */
-    private $isComptoire;
+    private bool $isComptoir;
+
 
     public function __construct()
     {
@@ -146,24 +148,12 @@ class Commerce
         return $this;
     }
 
-    public function getSiteWeb(): ?string
-    {
-        return $this->siteWeb;
-    }
-
-    public function setSiteWeb(?string $siteWeb): self
-    {
-        $this->siteWeb = $siteWeb;
-
-        return $this;
-    }
-
     public function getSlogan(): ?string
     {
         return $this->slogan;
     }
 
-    public function setSlogan(?string $slogan): self
+    public function setSlogan(string $slogan): self
     {
         $this->slogan = $slogan;
 
@@ -175,21 +165,9 @@ class Commerce
         return $this->textColor;
     }
 
-    public function setTextColor(?string $textColor): self
+    public function setTextColor(string $textColor): self
     {
         $this->textColor = $textColor;
-
-        return $this;
-    }
-
-    public function getLienFB(): ?string
-    {
-        return $this->lienFB;
-    }
-
-    public function setLienFB(?string $lienFB): self
-    {
-        $this->lienFB = $lienFB;
 
         return $this;
     }
@@ -199,7 +177,7 @@ class Commerce
         return $this->logo;
     }
 
-    public function setLogo(?string $logo): self
+    public function setLogo(string $logo): self
     {
         $this->logo = $logo;
 
@@ -218,24 +196,24 @@ class Commerce
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): ?DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    public function setCreatedAt(DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
 
         return $this;
     }
 
-    public function getUpdateAt(): ?\DateTimeInterface
+    public function getUpdateAt(): ?DateTimeInterface
     {
         return $this->updateAt;
     }
 
-    public function setUpdateAt(\DateTimeInterface $updateAt): self
+    public function setUpdateAt(DateTimeInterface $updateAt): self
     {
         $this->updateAt = $updateAt;
 
@@ -247,7 +225,7 @@ class Commerce
         return $this->lat;
     }
 
-    public function setLat(?float $lat): self
+    public function setLat(float $lat): self
     {
         $this->lat = $lat;
 
@@ -259,7 +237,7 @@ class Commerce
         return $this->lon;
     }
 
-    public function setLon(?float $lon): self
+    public function setLon(float $lon): self
     {
         $this->lon = $lon;
 
@@ -271,29 +249,29 @@ class Commerce
         return $this->bgImage;
     }
 
-    public function setBgImage(?string $bgImage): self
+    public function setBgImage(string $bgImage): self
     {
         $this->bgImage = $bgImage;
 
         return $this;
     }
 
-    public function getIsComptoire(): ?bool
+    public function getIsComptoir(): ?bool
     {
-        return $this->isComptoire;
+        return $this->isComptoir;
     }
 
-    public function setIsComptoire(bool $isComptoire): self
+    public function setIsComptoir(bool $isComptoir): self
     {
-        $this->isComptoire = $isComptoire;
+        $this->isComptoir = $isComptoir;
 
         return $this;
     }
 
     /**
-     * @return \Doctrine\Common\Collections\Collection|Lien[]
+     * @return Collection|Lien[]
      */
-    public function getLiens(): \Doctrine\Common\Collections\Collection
+    public function getLiens(): Collection
     {
         return $this->liens;
     }
@@ -321,39 +299,32 @@ class Commerce
     }
 
     /**
-     * @return \Doctrine\Common\Collections\Collection|Adresse[]
+     * @return Collection|Adresse[]
      */
-    public function getAdresses(): \Doctrine\Common\Collections\Collection
+    public function getAdresses(): Collection
     {
         return $this->adresses;
     }
 
-    public function addAdress(Adresse $adress): self
+    public function addAdresse(Adresse $adresse): self
     {
-        if (!$this->adresses->contains($adress)) {
-            $this->adresses[] = $adress;
-            $adress->setCommerce($this);
+        if (!$this->adresses->contains($adresse)) {
+            $this->adresses[] = $adresse;
+            $adresse->setCommerce($this);
         }
 
         return $this;
     }
 
-    public function removeAdress(Adresse $adress): self
+    public function removeAdresse(Adresse $adresse): self
     {
-        if ($this->adresses->removeElement($adress)) {
+        if ($this->adresses->removeElement($adresse)) {
             // set the owning side to null (unless already changed)
-            if ($adress->getCommerce() === $this) {
-                $adress->setCommerce(null);
+            if ($adresse->getCommerce() === $this) {
+                $adresse->setCommerce(null);
             }
         }
 
         return $this;
-    }
-    public function removeAdresse(Adresse $adresse): self{
-        return $this->removeAdress($adresse);
-    }
-
-    public function addAdresse(Adresse $adresse): self{
-        return $this->addAdress($adresse);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiProperty;
 use App\Interfaces\Positionnable;
 use App\Repository\PageRepository;
 use Doctrine\ORM\Mapping as ORM;
@@ -28,6 +29,8 @@ abstract class Page implements Positionnable
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @ApiProperty(identifier=false)
+     * @Groups({"read:page:short"})
      */
     private ?int $id;
 
@@ -51,6 +54,7 @@ abstract class Page implements Positionnable
      * @var string|null
      * @ORM\Column(type="string", length=156, unique=true)
      * @Gedmo\Slug(fields={"titreMenu"}, unique=true)
+     * @ApiProperty(identifier=true)
      *
      * @Groups({"read:page:short"})
      */
@@ -61,7 +65,7 @@ abstract class Page implements Positionnable
      */
     private ?bool $isActif;
 
-     abstract public function getType() : string;
+    abstract public function getType() : string;
 
     /**
      * @var Categorie|null
