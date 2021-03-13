@@ -35,6 +35,7 @@ App\Entity\Adresse:
     ville: '@mons'
     pays: '@belgique'
     typeAdresse: facturation
+
   adresse_11:
     rue: <streetName()>
     actif: true
@@ -43,6 +44,7 @@ App\Entity\Adresse:
     ville: '@mons'
     pays: '@belgique'
     typeAdresse: commerce
+
 App\Entity\Commerce:
   commerce_{0..10}:
     nom: <company()>
@@ -55,6 +57,6 @@ App\Entity\Commerce:
     lat: <randomFloat(5,50.4,50.5)>
     lon: <randomFloat(5,3.9,4)>
     bgImage: <imageUrl()>
-    isComptoire: <boolean()>
+    isComptoir: <boolean()>
     __calls:
       - addAdresse: [ '@adresse_<current()>' ]

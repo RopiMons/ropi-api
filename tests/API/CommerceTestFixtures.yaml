@@ -47,6 +47,6 @@ App\Entity\Commerce:
     lat: <randomFloat(5,50.4,50.5)>
     lon: <randomFloat(5,3.9,4)>
     bgImage: <imageUrl()>
-    isComptoire: <boolean()>
+    isComptoir: <boolean()>
     __calls:
       - addAdresse: ['@adresse_<current()>']

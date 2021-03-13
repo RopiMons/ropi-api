@@ -32,7 +32,7 @@ class PageStatique extends Page
      * @var Collection
      * @ORM\OneToMany(targetEntity="Paragraphe", mappedBy="page")
      *
-     * @Groups({"read:page:full"})
+     * @Groups({"read:page:full","read:menu"})
      */
     private Collection $paragraphes;
 

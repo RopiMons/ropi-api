@@ -24,13 +24,14 @@ class Paragraphe implements Positionnable
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"read:page:full","read:menu"})
      */
     private ?int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      *
-     * @Groups({"read:page:full"})
+     * @Groups({"read:page:full","read:menu"})
      */
     private ?string $titre;
 

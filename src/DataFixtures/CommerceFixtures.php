@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Commerce;
+use DateTime;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -18,8 +19,8 @@ class CommerceFixtures extends Fixture implements DependentFixtureInterface
                 'slogan' => 'Payez en argent comptant !',
                 'visible' => true,
                 'textColor' => '#ffffff',
-                'createdAt' => new \DateTime(),
-                'updateAt' => new \DateTime(),
+                'createdAt' => new DateTime(),
+                'updateAt' => new DateTime(),
                 'bgImage' => 'http://ropi.be/img/ROPI_WEB_BG_BL.png',
                 'isComptoir' => false,
                 'lat' => '50.4552629',
@@ -33,8 +34,8 @@ class CommerceFixtures extends Fixture implements DependentFixtureInterface
                 'slogan' => 'Lieu de vie communautaire et démocratique',
                 'visible' => true,
                 'textColor' => '#ffffff',
-                'createdAt' => new \DateTime(),
-                'updateAt' => new \DateTime(),
+                'createdAt' => new DateTime(),
+                'updateAt' => new DateTime(),
                 'bgImage' => 'http://mfs0.cdnsw.com/fs/Root/large/d1fd0-IMG_20150820_191811.jpg',
                 'isComptoir' => true,
                 'lat' => '50.455242',
@@ -42,7 +43,7 @@ class CommerceFixtures extends Fixture implements DependentFixtureInterface
                 'logo' => 'http://mfs0.cdnsw.com/fs/Root/small/al5b0-logo_fcj.png',
                 'lien' => ['FD 1', 'FD 2'],
                 'adresse' => ['Adresse Fonds']
-            ]
+            ],
         ];
 
         foreach ($array as $name => $element){

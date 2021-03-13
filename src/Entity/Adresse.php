@@ -149,9 +149,11 @@ class Adresse
         return $this->complement;
     }
 
-    public function setComplement(string $complement): self
+    public function setComplement(?string $complement): self
     {
-        $this->complement = $complement;
+        if ($complement !== null) {
+            $this->complement = $complement;
+        }
 
         return $this;
     }

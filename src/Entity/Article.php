@@ -5,9 +5,21 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\ArticleRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ *     normalization_context = {"groups"={"read:article:short"}},
+ *     itemOperations = {
+ *     "get" = {
+ *          "method"="GET",
+ *          "security"="object.actif()"
+ *     }},
+ *     collectionOperations = {
+ *          "get" = {
+ *              "security"="object.actif()"
+ *     }}
+ * )
  * @ORM\Entity(repositoryClass=ArticleRepository::class)
  */
 class Article
@@ -21,11 +33,13 @@ class Article
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"read:article:short"})
      */
     private string $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"read:article:short"})
      */
     private string $image;
 
@@ -36,11 +50,13 @@ class Article
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Groups({"read:article:short"})
      */
     private string $description;
 
     /**
      * @ORM\Column(type="float")
+     * @Groups({"read:article:short"})
      */
     private float $prix;
 
