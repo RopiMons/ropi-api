@@ -1,3 +1,9 @@
+# The documentation for this dockerfile can be found on
+# https://webdevpro.net/utiliser-symfony-dans-docker/
+#
+# This Dockerfile is used by the companion file docker-compose.yml
+# which is processed by callin  `docker-compose up -d`
+
 FROM php:7.4-fpm-alpine
 
 # Apk install
@@ -13,11 +19,8 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" &&
 # Symfony CLI
 RUN wget https://get.symfony.com/cli/installer -O - | bash && mv /root/.symfony/bin/symfony /usr/local/bin/symfony
 
-RUN git config --global user.name "Fabian Dortu" && \
-	git config --global user.email fdortu@fastmail.net
-
-
 WORKDIR /var/www/html
 
-CMD cd ropi-api && yarn && yarn dev 
-CMD symfony server:start -d
+# TODO add CMD to automize initialization ? Only one CMD allowed!
+#CMD cd ropi-api && yarn && yarn dev 
+#CMD symfony server:start& 
