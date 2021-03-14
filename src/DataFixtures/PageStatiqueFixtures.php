@@ -25,6 +25,12 @@ class PageStatiqueFixtures extends Fixture implements DependentFixtureInterface
                 'isActif' => true,
                 'titreMenu' => 'Ecouler ses ropis',
                 'categorie' => $this->getReference('A propos')
+            ],
+            'Page 3' => [
+                'position' => 1,
+                'isActif' => true,
+                'titreMenu' => 'Essai',
+                'categorie' => $this->getReference('En pratique')
             ]
         ];
 
