@@ -2,14 +2,22 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\LienRepository;
 use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=LienRepository::class)
  *
- * Serializer\ExclusionPolicy("all")
+ * @ApiResource(
+ *     normalizationContext={"groups"={"read:commerce"}},
+ *     collectionOperations={"get"},
+ *     itemOperations={
+ *          "get" = {"security"="!object.getIsSuspicious()"}
+ *      }
+ * )
  */
 class Lien
 {
@@ -24,7 +32,7 @@ class Lien
     /**
      * @ORM\Column(type="string", length=255)
      *
-     * Serializer\Expose()
+     * @Groups({"read:commerce"})
      */
     private string $url;
 
