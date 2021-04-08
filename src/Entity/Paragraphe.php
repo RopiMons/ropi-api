@@ -4,9 +4,11 @@ namespace App\Entity;
 
 use App\Interfaces\Positionnable;
 use App\Repository\ParagrapheRepository;
+use DateTime;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
-use JMS\Serializer\Annotation as Serializer;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=ParagrapheRepository::class)
@@ -14,7 +16,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\HasLifecycleCallbacks()
  * @UniqueEntity(fields={"position","page"}, message="Cette position est déjà prise sur cette page")
  *
- * @Serializer\ExclusionPolicy("all")
+ * Serializer\ExclusionPolicy("all")
  */
 class Paragraphe implements Positionnable
 {
@@ -22,13 +24,14 @@ class Paragraphe implements Positionnable
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"read:page:full","read:menu"})
      */
     private ?int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Serializer\Expose()
-     * @Serializer\Groups({"page_complete"})
+     *
+     * @Groups({"read:page:full","read:menu"})
      */
     private ?string $titre;
 
@@ -39,35 +42,35 @@ class Paragraphe implements Positionnable
 
     /**
      * @ORM\Column(type="datetime")
-     * @Serializer\Expose()
-     * @Serializer\Groups({"page_complete"})
+     *
+     * @Groups({"read:page:full"})
      */
-    private ?\DateTimeInterface $lastUpdate;
+    private ?DateTimeInterface $lastUpdate;
 
     /**
      * @ORM\Column(type="datetime")
-     * @Serializer\Expose()
-     * @Serializer\Groups({"page_complete"})
+     *
+     * @Groups({"read:page:full"})
      */
-    private ?\DateTimeInterface $createdAt;
+    private ?DateTimeInterface $createdAt;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private ?\DateTimeInterface $publicationDate;
+    private ?DateTimeInterface $publicationDate;
 
     /**
      * @ORM\Column(type="text")
-     * @Serializer\Expose()
-     * @Serializer\Groups({"page_complete"})
+     *
+     * @Groups({"read:page:full"})
      */
     private ?string $text;
 
     /**
-     * @var Page|null
+     * @var PageStatique|null
      * @ORM\ManyToOne(targetEntity="PageStatique", inversedBy="paragraphes")
      */
-    private ?Page $page;
+    private ?PageStatique $page;
 
     public function getId(): ?int
     {
@@ -98,36 +101,36 @@ class Paragraphe implements Positionnable
         return $this;
     }
 
-    public function getLastUpdate(): ?\DateTimeInterface
+    public function getLastUpdate(): ?DateTimeInterface
     {
         return $this->lastUpdate;
     }
 
-    public function setLastUpdate(\DateTimeInterface $lastUpdate): self
+    public function setLastUpdate(DateTimeInterface $lastUpdate): self
     {
         $this->lastUpdate = $lastUpdate;
 
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): ?DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    public function setCreatedAt(DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
 
         return $this;
     }
 
-    public function getPublicationDate(): ?\DateTimeInterface
+    public function getPublicationDate(): ?DateTimeInterface
     {
         return $this->publicationDate;
     }
 
-    public function setPublicationDate(\DateTimeInterface $publicationDate): self
+    public function setPublicationDate(DateTimeInterface $publicationDate): self
     {
         $this->publicationDate = $publicationDate;
 
@@ -162,7 +165,7 @@ class Paragraphe implements Positionnable
      * @ORM\PrePersist()
      */
     function onPrePersist(){
-        $now = new \DateTime();
+        $now = new DateTime();
         $this->setCreatedAt($now);
         $this->setLastUpdate($now);
     }
@@ -171,6 +174,10 @@ class Paragraphe implements Positionnable
      * @ORM\PreUpdate()
      */
     function onPreUpdate(){
-        $this->setLastUpdate(new \DateTime());
+        $this->setLastUpdate(new DateTime());
+    }
+
+    function isActif() :bool{
+        return ($this->publicationDate !== null && $this->publicationDate > new DateTime()) ? false : $this->page->getIsActif();
     }
 }

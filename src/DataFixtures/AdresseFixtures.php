@@ -28,6 +28,14 @@ class AdresseFixtures extends Fixture implements DependentFixtureInterface
                 'pays' => $this->getReference('Be'),
                 'typeAdresse' => Adresse::COMMERCE,
                 'ville' => $this->getReference('Jemappes')
+            ],
+            'Adresse Farms' => [
+                'actif' => true,
+                'numero' => '2',
+                'rue' => 'Rue des droits de l’Homme (face aux cours de justice)',
+                'pays' => $this->getReference('Be'),
+                'typeAdresse' => Adresse::COMMERCE,
+                'ville' => $this->getReference('Mons')
             ]
         ];
 

@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="example-wrapper">
+        <h1>Hello Ropieur ! ✅</h1>
+
+        Cette page ne donne pas accès à grand choses ... Peut-être souhaites-tu te rendre
+        <ul>
+            <li>Sur notre <code><a href="https://www.ropi.be">Site grand publique</a></code></li>
+            <li>Sur la documentation de l'<code><a href="/api">API</a></code></li>
+            <li>Sur le backend <code><a href="{{ path('app_login') }}">admin</a></code></li>
+        </ul>
+        Tu es développeur.se ? N'hésites pas à jetter un coup d'oeil à notre <code><a href="https://github.com/RopiMons">Github</a></code>
+    </div>
+{% endblock %}

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+</head>
+<body>
+<div class="container-fluid sticky-top">
+    <nav class="navbar navbar-dark bg-dark nav nav-pills nav-fill">
+        <!-- Navbar content -->
+        <a class="navbar-brand" href="{{ path('admin_home') }}">
+            <img src="{{ asset('build/images/logo/ropi_r.png') }}" width="30" height="30" class="d-inline-block align-top" alt="Logo">
+            Admin Ropi Mons
+        </a>
+            <a class="nav-item nav-link {% if app.request.get('_route') == 'admin_cms' %}active{% endif %}" href="#">CMS</a>
+            <a class="nav-item nav-link" href="#">Utilisateurs</a>
+            <a class="nav-item nav-link" href="#">Commandes</a>
+            <a class="nav-item nav-link" href="#">Commerces</a>
+    </nav>
+
+</div>
+<div class="container-fluid">
+    {% block body %}
+    {% endblock %}
+</div>
+{% block javascripts %}
+    {{ encore_entry_script_tags('app') }}
+{% endblock %}
+</body>
+</html>

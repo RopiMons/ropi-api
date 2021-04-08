@@ -19,6 +19,35 @@ class AdresseRepository extends ServiceEntityRepository
         parent::__construct($registry, Adresse::class);
     }
 
+    /**
+     * @param int $id
+     * @return Adresse|null
+     */
+    public function getApiAddresse(int $id) : ?Adresse {
+        try {
+            return $this
+                ->createQueryBuilder('adresse')
+                ->select(['adresse','pays','ville','commerce'])
+                ->leftJoin('adresse.pays','pays')
+                ->leftJoin('adresse.ville','ville')
+                ->join('adresse.commerce','commerce')
+                ->where('adresse.id = :id')
+                ->andWhere('adresse.actif = :true')
+                ->andWhere('adresse.typeAdresse = :type')
+                ->andWhere('commerce.visible = :true')
+                ->setParameters([
+                    'id' => $id,
+                    'true' => true,
+                    'type' => Adresse::COMMERCE
+                ])
+                ->getQuery()
+                ->getSingleResult()
+                ;
+        }catch (\Exception $exception){
+            return null;
+        }
+    }
+
     // /**
     //  * @return Adresse[] Returns an array of Adresse objects
     //  */

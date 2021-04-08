@@ -53,6 +53,13 @@ class ParagrapheFixtures extends Fixture implements DependentFixtureInterface
 <p><strong>Bref, il faut que ça circule !</strong></p>
 <p>En enfin, si malgré tout ça il n'est pas possible d'écouler tous ses Ropi, <strong>il reste la possibilité de les&nbsp;<a href=\"https://www.ropi.be/page/Actions/Reconvertir%20des%20Ropi\">reconvertir</a> en euros en s'acquitant d'une taxe de <code>5</code> %</strong>.</p>
 <p><strong>En dernier recours</strong>, la<strong> reconversion à 0 % (sans taxe)</strong> est possible <strong>au dessus d'un certain montant</strong>. En effet, un commerçant qui a vraiment du mal à écouler ses Ropi, peut le signaler à l'asbl qui cherchera alors une solution en collaboration avec le commerçant pour écouler les Ropi. Si aucune solution n'est trouvée endéans les deux semaines, la reconversion à 0% est acceptée pour une durée déterminée, <strong>par tranche de <code>100</code> € pour les asbl et <code>200</code> € pour les prestataires du secteur marchand</strong>.</p>"
+            ],
+            'Paragraphe 4' => [
+                'titre' => "Mon essai ?",
+                'ref' => 'Page 3',
+                'position' => 1,
+                'publicationDate' =>  null,
+                'text' => "<p> Petit test essai </p>"
             ]
         ];
 

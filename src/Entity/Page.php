@@ -2,12 +2,13 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiProperty;
 use App\Interfaces\Positionnable;
 use App\Repository\PageRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use JMS\Serializer\Annotation as Serializer;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -19,9 +20,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\DiscriminatorMap({"dynamique"="PageDynamique", "statique"="PageStatique"})
  *
  * @UniqueEntity(fields={"titreMenu"}, message="Ce titre est déjà présent dans le menu")
+ * @UniqueEntity(fields={"position","categorie"}, message="Cette position est déjà occupée")
  *
- * @Serializer\ExclusionPolicy("none")
- * @Serializer\Exclude(if="!object.getIsActif()")
  */
 abstract class Page implements Positionnable
 {
@@ -29,20 +29,23 @@ abstract class Page implements Positionnable
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Serializer\Exclude()
+     * @ApiProperty(identifier=false)
+     * @Groups({"read:page:short"})
      */
     private ?int $id;
 
     /**
      * @ORM\Column(type="integer")
-     * @Serializer\Exclude()
+     * @Assert\NotBlank()
+     * @Assert\Type(type="integer")
      */
     private ?int $position;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      * @Assert\Length(min="3", max="25")
-     * @Serializer\Groups({"page_complete","page_reduite"})
+     * @Groups({"read:page:short"})
      *
      */
     private ?string $titreMenu;
@@ -51,23 +54,22 @@ abstract class Page implements Positionnable
      * @var string|null
      * @ORM\Column(type="string", length=156, unique=true)
      * @Gedmo\Slug(fields={"titreMenu"}, unique=true)
+     * @ApiProperty(identifier=true)
      *
-     * @Serializer\Groups({"page_complete","page_reduite"})
+     * @Groups({"read:page:short"})
      */
     private ?string $slug;
 
     /**
      * @ORM\Column(type="boolean")
-     *
-     * @Serializer\Exclude()
      */
     private ?bool $isActif;
+
+    abstract public function getType() : string;
 
     /**
      * @var Categorie|null
      * @ORM\ManyToOne(targetEntity="App\Entity\Categorie", inversedBy="pages")
-     *
-     * @Serializer\Exclude()
      */
     private ?Categorie $categorie;
 
@@ -139,8 +141,7 @@ abstract class Page implements Positionnable
     /**
      * @return string|null
      *
-     * @Serializer\VirtualProperty()
-     * @Serializer\Groups({"page_complete"})
+     * @Groups({"read:page:full"})
      */
     public function getCategorieName() : ?string{
 

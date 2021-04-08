@@ -2,15 +2,23 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\AdresseRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use JMS\Serializer\Annotation as Serializer;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=AdresseRepository::class)
  *
- * @Serializer\Exclude(if="object.getTypeAdresse()!='commerce' || !object.getActif()")
- * @Serializer\ExclusionPolicy("all")
+ * @ApiResource(
+ *     normalizationContext={"groups"={"read:adresse"}},
+ *     collectionOperations={},
+ *     itemOperations={
+ *          "get" = {"security"="is_granted('view_commerce',object)"}
+ *      }
+ * )
  *
  */
 class Adresse
@@ -24,61 +32,76 @@ class Adresse
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     *
+     * @Groups({"read:adresse"})
      */
-    private $id;
+    private int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      *
-     * @Serializer\Expose()
+     * @Groups({"read:adresse"})
      */
-    private $rue;
+    private string $rue;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private $actif;
+    private bool $actif;
 
     /**
      * @ORM\Column(type="string", length=10)
      *
-     * @Serializer\Expose()
+     * @Groups({"read:adresse"})
      */
-    private $numero;
+    private string $numero;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      *
-     * @Serializer\Expose()
+     * @Groups({"read:adresse"})
      */
-    private $complement;
+    private ?string $complement;
 
     /**
      * @var Ville
      * @ORM\ManyToOne(targetEntity="App\Entity\Ville")
      *
-     * @Serializer\Expose()
+     * @Groups({"read:adresse"})
      */
-    private $ville;
+    private Ville $ville;
 
     /**
      * @var Pays
      * @ORM\ManyToOne(targetEntity="App\Entity\Pays")
      *
-     * @Serializer\Expose()
+     * @Groups({"read:adresse"})
      */
-    private $pays;
+    private Pays $pays;
 
     /**
      * @ORM\Column(type="string", length=100)
      */
-    private $typeAdresse;
+    private string $typeAdresse;
+
+
+    /**
+     * @var Collection<Personne>
+     * @ORM\ManyToMany(targetEntity="App\Entity\Personne", mappedBy="adresses")
+     */
+    private Collection $personnes;
+
 
     /**
      * @var Commerce
      * @ORM\ManyToOne(targetEntity="App\Entity\Commerce", inversedBy="adresses")
      */
-    private $commerce;
+    private Commerce $commerce;
+
+    public function __construct()
+    {
+        $this->personnes = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -128,7 +151,9 @@ class Adresse
 
     public function setComplement(?string $complement): self
     {
-        $this->complement = $complement;
+        if ($complement !== null) {
+            $this->complement = $complement;
+        }
 
         return $this;
     }
@@ -150,7 +175,7 @@ class Adresse
         return $this->ville;
     }
 
-    public function setVille(?Ville $ville): self
+    public function setVille(Ville $ville): self
     {
         $this->ville = $ville;
 
@@ -162,7 +187,7 @@ class Adresse
         return $this->pays;
     }
 
-    public function setPays(?Pays $pays): self
+    public function setPays(Pays $pays): self
     {
         $this->pays = $pays;
 
@@ -174,9 +199,36 @@ class Adresse
         return $this->commerce;
     }
 
-    public function setCommerce(?Commerce $commerce): self
+    public function setCommerce(Commerce $commerce): self
     {
         $this->commerce = $commerce;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Personne[]
+     */
+    public function getPersonnes(): Collection
+    {
+        return $this->personnes;
+    }
+
+    public function addPersonne(Personne $personne): self
+    {
+        if (!$this->personnes->contains($personne)) {
+            $this->personnes[] = $personne;
+            $personne->addAdress($this);
+        }
+
+        return $this;
+    }
+
+    public function removePersonne(Personne $personne): self
+    {
+        if ($this->personnes->removeElement($personne)) {
+            $personne->removeAdress($this);
+        }
 
         return $this;
     }

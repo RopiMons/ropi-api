@@ -4,12 +4,10 @@ namespace App\Entity;
 
 use App\Repository\VilleRepository;
 use Doctrine\ORM\Mapping as ORM;
-use JMS\Serializer\Annotation as Serializer;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=VilleRepository::class)
- *
- * @Serializer\ExclusionPolicy("all")
  */
 class Ville
 {
@@ -18,21 +16,21 @@ class Ville
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private int $id;
 
     /**
      * @ORM\Column(type="string", length=10)
      *
-     * @Serializer\Expose()
+     * @Groups({"read:adresse"})
      */
-    private $codePostal;
+    private string $codePostal;
 
     /**
      * @ORM\Column(type="string", length=100)
      *
-     * @Serializer\Expose()
+     * @Groups({"read:adresse"})
      */
-    private $ville;
+    private string $ville;
 
     public function getId(): ?int
     {

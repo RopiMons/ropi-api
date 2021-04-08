@@ -1,0 +1,52 @@
+# Référence : https://fakerphp.github.io/
+App\Entity\Pays:
+  belgique:
+    nom: Belgique
+    regexCodePostal: '\^[1-9]{1}[0-9]{3}\$'
+    nomCourt: Be
+
+App\Entity\Ville:
+  mons:
+    codePostal: 1180
+    ville: Mons
+
+App\Entity\Adresse:
+  adresse_{0..8}:
+    rue: <streetName()>
+    actif: true
+    numero: <buildingNumber()>
+    complement: '50%? <secondaryAddress()>'
+    ville: '@mons'
+    pays: '@belgique'
+    typeAdresse: commerce
+  adresse_9:
+    rue: <streetName()>
+    actif: false
+    numero: <buildingNumber()>
+    complement: '50%? <secondaryAddress()>'
+    ville: '@mons'
+    pays: '@belgique'
+    typeAdresse: commerce
+  adresse_10:
+    rue: <streetName()>
+    actif: true
+    numero: <buildingNumber()>
+    complement: '50%? <secondaryAddress()>'
+    ville: '@mons'
+    pays: '@belgique'
+    typeAdresse: facturation
+App\Entity\Commerce:
+  commerce_{0..10}:
+    nom: <company()>
+    slogan: <catchPhrase()>
+    textColor: <hexColor()>
+    logo: <imageUrl()>
+    visible: <current()>
+    createdAt: <dateTime()>
+    updateAt: <dateTime()>
+    lat: <randomFloat(5,50.4,50.5)>
+    lon: <randomFloat(5,3.9,4)>
+    bgImage: <imageUrl()>
+    isComptoir: <boolean()>
+    __calls:
+      - addAdresse: ['@adresse_<current()>']

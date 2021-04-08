@@ -3,13 +3,13 @@
 namespace App\Entity;
 
 use App\Repository\LienRepository;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
-use JMS\Serializer\Annotation as Serializer;
 
 /**
  * @ORM\Entity(repositoryClass=LienRepository::class)
  *
- * @Serializer\ExclusionPolicy("all")
+ * Serializer\ExclusionPolicy("all")
  */
 class Lien
 {
@@ -19,37 +19,37 @@ class Lien
      * @ORM\Column(type="integer")
      *
      */
-    private $id;
+    private int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      *
-     * @Serializer\Expose()
+     * Serializer\Expose()
      */
-    private $url;
+    private string $url;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private $isSuspicious;
+    private bool $isSuspicious;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $lastCheck;
+    private DateTimeInterface $lastCheck;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      *
-     * @Serializer\Expose()
+     * Serializer\Expose()
      */
-    private $commentaire;
+    private string $commentaire;
 
     /**
      * @var Commerce
      * @ORM\ManyToOne(targetEntity="App\Entity\Commerce", inversedBy="liens")
      */
-    private $commerce;
+    private Commerce $commerce;
 
     public function getId(): ?int
     {
@@ -80,12 +80,12 @@ class Lien
         return $this;
     }
 
-    public function getLastCheck(): ?\DateTimeInterface
+    public function getLastCheck(): ?DateTimeInterface
     {
         return $this->lastCheck;
     }
 
-    public function setLastCheck(?\DateTimeInterface $lastCheck): self
+    public function setLastCheck(DateTimeInterface $lastCheck): self
     {
         $this->lastCheck = $lastCheck;
 
@@ -109,7 +109,7 @@ class Lien
         return $this->commerce;
     }
 
-    public function setCommerce(?Commerce $commerce): self
+    public function setCommerce(Commerce $commerce): self
     {
         $this->commerce = $commerce;
 

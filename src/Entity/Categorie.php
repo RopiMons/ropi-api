@@ -2,20 +2,33 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
+use App\Controller\Api\MenuController;
 use App\Interfaces\Positionnable;
 use App\Repository\CategorieRepository;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use JMS\Serializer\Annotation as Serializer;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\Validator\Constraints\Collection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=CategorieRepository::class)
  * @UniqueEntity(fields={"nom"}, message="Cette catégorie est déjà présente")
  * @UniqueEntity(fields={"parent","position"}, message="Cette possition est déjà occupée")
  *
- * @Serializer\ExclusionPolicy("all")
+ * @ApiResource(
+ *     normalizationContext={"groups"={"read:menu","read:page:short"}},
+ *     itemOperations={
+ *          "get"
+ *      },
+ *     collectionOperations={
+ *          "get" = {
+ *              "path"="/menu",
+ *              "controller"=MenuController::class
+ *          }
+ *     }
+ * )
  */
 class Categorie implements Positionnable
 {
@@ -23,45 +36,46 @@ class Categorie implements Positionnable
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Serializer\Expose()
      */
-    private $id;
+    private int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Serializer\Expose()
+     * @Groups({"read:menu"})
      */
-    private $nom;
+    private string $nom;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $position;
+    private int $position;
 
     /**
      * @var Categorie
      * @ORM\ManyToOne(targetEntity="App\Entity\Categorie", inversedBy="enfants")
      */
-    private $parent;
+    private Categorie $parent;
 
     /**
      * @var Collection
      * @ORM\OneToMany(targetEntity="App\Entity\Categorie", mappedBy="parent")
+     *
+     * @Groups({"read:menu"})
      */
-    private $enfants;
+    private Collection $enfants;
 
     /**
      * @var Collection
      * @ORM\OneToMany(targetEntity="App\Entity\Page", mappedBy="categorie")
-     * @Serializer\Expose()
+     * @Groups({"read:menu"})
      */
-    private $pages;
+    private Collection $pages;
 
     /**
      * @ORM\Column(type="string", length=50, nullable=true)
-     * @Serializer\Expose()
+     * @Groups({"read:menu"})
      */
-    private $faIcone;
+    private string $faIcone;
 
     public function __construct()
     {
@@ -103,7 +117,7 @@ class Categorie implements Positionnable
         return $this->parent;
     }
 
-    public function setParent(?self $parent): self
+    public function setParent(self $parent): self
     {
         $this->parent = $parent;
 
@@ -111,9 +125,9 @@ class Categorie implements Positionnable
     }
 
     /**
-     * @return \Doctrine\Common\Collections\Collection|Categorie[]
+     * @return Collection|Categorie[]
      */
-    public function getEnfants(): \Doctrine\Common\Collections\Collection
+    public function getEnfants(): Collection
     {
         return $this->enfants;
     }
@@ -123,6 +137,20 @@ class Categorie implements Positionnable
         if (!$this->enfants->contains($enfant)) {
             $this->enfants[] = $enfant;
             $enfant->setParent($this);
+        }
+
+        return $this;
+    }
+
+    public function setEnfants(Collection $enfants): self
+    {
+
+        $this->enfants = $enfants;
+
+        foreach ($enfants as $enfant) {
+            if ($enfant instanceof Categorie) {
+                $enfant->setParent($this);
+            }
         }
 
         return $this;
@@ -141,9 +169,9 @@ class Categorie implements Positionnable
     }
 
     /**
-     * @return \Doctrine\Common\Collections\Collection|Page[]
+     * @return Collection|Page[]
      */
-    public function getPages(): \Doctrine\Common\Collections\Collection
+    public function getPages(): Collection
     {
         return $this->pages;
     }
@@ -175,10 +203,22 @@ class Categorie implements Positionnable
         return $this->faIcone;
     }
 
-    public function setFaIcone(?string $faIcone): self
+    public function setFaIcone(string $faIcone): self
     {
         $this->faIcone = $faIcone;
 
+        return $this;
+    }
+
+    public function setPages(Collection $pages): self
+    {
+        $this->pages = $pages;
+
+        foreach ($pages as $page) {
+            if (get_parent_class($page) === Page::class) {
+                $page->setCategorie($this);
+            }
+        }
         return $this;
     }
 }
