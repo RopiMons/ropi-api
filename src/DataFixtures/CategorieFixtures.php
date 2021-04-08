@@ -12,29 +12,29 @@ class CategorieFixtures extends Fixture
     {
 
         $array = [
-            'A propos' => [
+            'categorie-a-propos' => [
                 'position' => 1,
                 'nom' => 'A propos',
                 'faIcone' => 'far fa-question-circle'
             ],
-            'En pratique' => [
+            'categorie-en-pratique' => [
                 'position' => 2,
                 'nom' => 'En pratique',
                 'faIcone' => 'fa fa-play'
             ],
-            'Actualités' => [
+            'categorie-actualités' => [
                 'position' => 3,
                 'nom' => 'Actualités',
                 'faIcone' => 'far fa-newspaper'
             ],
-            'Contact' => [
+            'categorie-contact' => [
                 'position' => 4,
                 'nom' => 'Contact',
                 'faIcone' => 'far fa-address-book'
             ],
-            'Login' => [
+            'categorie-login' => [
                 'position' => 5,
-                'nom' => 'Login',
+                'nom' => 'Mon compte',
                 'faIcone' => 'fas fa-sign-in-alt'
             ]
         ];

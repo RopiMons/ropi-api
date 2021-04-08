@@ -13,28 +13,16 @@ class ParagrapheFixtures extends Fixture implements DependentFixtureInterface
     {
 
         $array = [
-            'Paragraphe 1' => [
+            'paragraphe-Pourquoi MLC' => [
                 'titre' => "Le Ropi ne remplace pas l'euro, il le complémente !",
-                'ref' => 'Page 1',
+                'ref' => 'page-pourquoi',
                 'position' => 1,
                 'publicationDate' =>  null,
-                'text' => "<p>Il circule en parallèle à l'euro (€), et par facilité, il partage la même échelle de valeur</p><p>&nbsp;</p><p style=\"padding-left: 30px; text-align: center;\">&nbsp;<img src=\"https://www.ropi.be/source/component_parite.png\" alt=\"1 Ropi = 1 Euro + énergie positive!\" width=\"200\" height=\"76\"></p>"
+                'text' => include 'Paragraphes/PourquoiRopi.php' 
             ],
-            'Paragraphe 2' => [
-                'titre' => "Mais alors pourquoi passer par le Ropi ?",
-                'ref' => 'Page 1',
-                'position' => 2,
-                'publicationDate' =>  null,
-                'text' => "<p>Sa spécificité par rapport à l'euro est de <strong>n'avoir court qu'au sein d'une région limitée</strong>, Mons-Borinage, et par conséquent de favoriser l'<strong>économie locale</strong> et les <strong>circuits de distribution courts</strong> (consultez <a href=\"https://www.ropi.be/page/Documents/Documents fondateurs\">nos documents fondateurs</a>). Utiliser le Ropi permet</p><ul>
-                            <li>de colmater les fuites de monnaie vers l'économie extérieure, et, par voie de conséquence, de retirer la monnaie du circuit spéculatif.</li>
-                            <li>de favoriser les échanges grâce à une vitesse de circulation accrue, le Ropi ne pouvant être thésaurisé.</li>
-                            <li>de favoriser les échanges éthiques (respect de la nature et de l'être humain) en n'acceptant au sein du réseau que des prestataires engagés à respecter une charte éthique.</li>
-                            <li>de dédoubler la monnaie : les Ropi financent la consommation locale (et éthique), et la contrepartie en euro du fonds de garantie placé dans une banque éthique&nbsp;finance des projets positifs (banque Triodos actuellement mais à terme la nouvelle banque coopérative belge New B ou des coopératives d'investissement comme Crédal seront également considérées) .</li>
-                            </ul>"
-            ],
-            'Paragraphe 3' => [
+            'paragraphe-Comment Depenser' => [
                 'titre' => "Comment dépenser mes Ropi ?",
-                'ref' => 'Page 2',
+                'ref' => 'page-comment',
                 'position' => 1,
                 'publicationDate' =>  null,
                 'text' => "<p>La vocation des Ropi est de circuler, c'est à dire qu'après avoir été injectés dans le circuit par les usagers (<a href=\"https://www.ropi.be/page/Actions/Commander des Ropi\">acheter des Ropi</a>), les Ropi doivent continuer à circuler de commerçants en producteurs et de producteurs en commerçants.</p>
@@ -54,12 +42,159 @@ class ParagrapheFixtures extends Fixture implements DependentFixtureInterface
 <p>En enfin, si malgré tout ça il n'est pas possible d'écouler tous ses Ropi, <strong>il reste la possibilité de les&nbsp;<a href=\"https://www.ropi.be/page/Actions/Reconvertir%20des%20Ropi\">reconvertir</a> en euros en s'acquitant d'une taxe de <code>5</code> %</strong>.</p>
 <p><strong>En dernier recours</strong>, la<strong> reconversion à 0 % (sans taxe)</strong> est possible <strong>au dessus d'un certain montant</strong>. En effet, un commerçant qui a vraiment du mal à écouler ses Ropi, peut le signaler à l'asbl qui cherchera alors une solution en collaboration avec le commerçant pour écouler les Ropi. Si aucune solution n'est trouvée endéans les deux semaines, la reconversion à 0% est acceptée pour une durée déterminée, <strong>par tranche de <code>100</code> € pour les asbl et <code>200</code> € pour les prestataires du secteur marchand</strong>.</p>"
             ],
-            'Paragraphe 4' => [
-                'titre' => "Mon essai ?",
-                'ref' => 'Page 3',
+            'paragraphe-valeurs' => [
+                'titre' => "Nos Valeurs",
+                'ref' => 'page-valeurs',
                 'position' => 1,
                 'publicationDate' =>  null,
-                'text' => "<p> Petit test essai </p>"
+                'text' => "<p> Ceci sont nos valeurs </p>"
+            ],
+            'paragraphe-billets' => [
+                'titre' => "Les billets de Ropi",
+                'ref' => 'page-monnaie',
+                'position' => 1,
+                'publicationDate' =>  null,
+                'text' => "<p> Ceci sont nos billets </p>"
+            ],
+            'paragraphe-electronique' => [
+                'titre' => "Le Ropi électronique (eRopi)",
+                'ref' => 'page-monnaie',
+                'position' => 2,
+                'publicationDate' =>  null,
+                'text' => "<p> Ceci est l'eRopi </p>"
+            ],
+            'paragraphe-bénévole' => [
+                'titre' => "Les bénévoles du Ropi",
+                'ref' => 'page-coulisses',
+                'position' => 1,
+                'publicationDate' =>  null,
+                'text' => "<p> Ceci sont nos bénévoles </p>"
+            ],
+            'paragraphe-chiffres' => [
+                'titre' => "Les chiffres / bilan ",
+                'ref' => 'page-coulisses',
+                'position' => 2,
+                'publicationDate' =>  null,
+                'text' => "<p> Ceci sont les chiffres</p>"
+            ],
+            'paragraphe-roi' => [
+                'titre' => "Le Règlement d'Ordre Intérieur",
+                'ref' => 'page-coulisses',
+                'position' => 3,
+                'publicationDate' =>  null,
+                'text' => "<p> Ceci est le ROI</p>"
+            ],
+            'paragraphe-status' => [
+                'titre' => "Les Statuts de l'asbl",
+                'ref' => 'page-coulisses',
+                'position' => 4,
+                'publicationDate' =>  null,
+                'text' => "<p> Ceci sont les statuts</p>"
+            ],
+            'paragraphe-charte' => [
+                'titre' => "La Charte",
+                'ref' => 'page-coulisses',
+                'position' => 5,
+                'publicationDate' =>  null,
+                'text' => "<p> Ceci est la charte </p>"
+            ],
+            'paragraphe-commander' => [
+                'titre' => "Obtenir des Ropi",
+                'ref' => 'page-usagers',
+                'position' => 1,
+                'publicationDate' =>  null,
+                'text' => "<p> Obtenir des Ropi billets ou élecroniques </p>"
+            ],
+            'paragraphe-prestataire' => [
+                'titre' => "Liste des prestataires",
+                'ref' => 'page-usagers',
+                'position' => 2,
+                'publicationDate' =>  null,
+                'text' => "<p> Page commerçants </p>"
+            ],
+            'paragraphe-aider' => [
+                'titre' => "Devenir bénévole",
+                'ref' => 'page-usagers',
+                'position' => 3,
+                'publicationDate' =>  null,
+                'text' => "<p> paragraphe devenir bénévole </p>"
+            ],
+            'paragraphe-membre' => [
+                'titre' => "Devenir membre",
+                'ref' => 'page-usagers',
+                'position' => 4,
+                'publicationDate' =>  null,
+                'text' => "<p> paragraphe devenir membre </p>"
+            ],
+            'paragraphe-proposer' => [
+                'titre' => "Parainer un commerce",
+                'ref' => 'page-usagers',
+                'position' => 5,
+                'publicationDate' =>  null,
+                'text' => "<p> paragraphe parainer un commerce </p>"
+            ],
+            'paragraphe-don' => [
+                'titre' => "Faire un don à l'asbl",
+                'ref' => 'page-usagers',
+                'position' => 6,
+                'publicationDate' =>  null,
+                'text' => "<p> paragraphe faire un don </p>"
+            ],
+            'paragraphe-enregistrer' => [
+                'titre' => "Enregistrer mon(mes) commerce(s) / activité(s)",
+                'ref' => 'page-prestataires',
+                'position' => 1,
+                'publicationDate' =>  null,
+                'text' => "<p> paragraphe enregistrer mon commerce </p>"
+            ],
+            'paragraphe-kit' => [
+                'titre' => "Kit commerçant",
+                'ref' => 'page-prestataires',
+                'position' => 2,
+                'publicationDate' =>  null,
+                'text' => "<p> paragraphe mon kit commerçant </p>"
+            ],
+            'paragraphe-écouler' => [
+                'titre' => "Des idées pour écouler mes Ropi",
+                'ref' => 'page-prestataires',
+                'position' => 3,
+                'publicationDate' =>  null,
+                'text' => "<p> paragraphe idées pour écouler mes Ropi </p>"
+            ],
+            'paragraphe-reconvertir' => [
+                'titre' => "Reconvertir mes Ropi en euros",
+                'ref' => 'page-prestataires',
+                'position' => 4,
+                'publicationDate' =>  null,
+                'text' => include 'Paragraphes/Redime.php'
+            ],
+            'paragraphe-commander' => [
+                'titre' => "Commander des Ropi",
+                'ref' => 'page-portefeuille-billets',
+                'position' => 1,
+                'publicationDate' =>  null,
+                'text' => "<p> TODO LIEN DYNAMIQUE VERS COMMANDE BILLET </p>" 
+            ],
+            'paragraphe-suivi-commandes' => [
+                'titre' => "Suivre mes commandes",
+                'ref' => 'page-portefeuille-billets',
+                'position' => 2,
+                'publicationDate' =>  null,
+                'text' => "<p> TODO LIEN DYNAMIQYE VERS SUIVRES MES COMMANDES </p>"
+            ],
+            'paragraphe-comptes-rendus' => [
+                'titre' => "Comptes-rendus des réunions",
+                'ref' => 'page-démocratie-bénévoles',
+                'position' => 1,
+                'publicationDate' =>  null,
+                'text' => "<p> Consulter les comptes rendus de réunion </p>"
+            ],
+            'paragraphe-démarchage' => [
+                'titre' => "Mes démarchages",
+                'ref' => 'page-démocratie-bénévoles',
+                'position' => 2,
+                'publicationDate' =>  null,
+                'text' => "<p> Consulter les outils de démarchage </p>"
             ]
         ];
 

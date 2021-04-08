@@ -14,23 +14,89 @@ class PageStatiqueFixtures extends Fixture implements DependentFixtureInterface
     {
 
         $array = [
-            'Page 1' => [
-                'position' => 1,
+            'page-pourquoi' => [
+                'position' => 1,     
                 'isActif' => true,
-                'titreMenu' => 'Fonctionnement',
-                'categorie' => $this->getReference('A propos')
+                'titreMenu' => 'Pourquoi le Ropi ?',
+                'categorie' => $this->getReference('categorie-a-propos')
             ],
-            'Page 2' => [
+            'page-comment' => [
                 'position' => 2,
                 'isActif' => true,
-                'titreMenu' => 'Ecouler ses ropis',
-                'categorie' => $this->getReference('A propos')
+                'titreMenu' => 'Comment fonctionne le Ropi ?',
+                'categorie' => $this->getReference('categorie-a-propos')
             ],
-            'Page 3' => [
+            'page-valeurs' => [
+                'position' => 3,
+                'isActif' => true,
+                'titreMenu' => 'Nos valeurs',
+                'categorie' => $this->getReference('categorie-a-propos')
+            ],
+            'page-monnaie' => [
+                'position' => 4,
+                'isActif' => true,
+                'titreMenu' => 'La monnaie',
+                'categorie' => $this->getReference('categorie-a-propos')
+            ],    
+            'page-coulisses' => [
+                'position' => 6,
+                'isActif' => true,
+                'titreMenu' => 'Les coulisses',
+                'categorie' => $this->getReference('categorie-a-propos')
+            ],
+            'page-usagers' => [
                 'position' => 1,
                 'isActif' => true,
-                'titreMenu' => 'Essai',
-                'categorie' => $this->getReference('En pratique')
+                'titreMenu' => 'Je suis un usager',
+                'categorie' => $this->getReference('categorie-en-pratique')
+            ],
+            'page-prestataires' => [
+                'position' => 2,
+                'isActif' => true,
+                'titreMenu' => 'Je suis un prestataire',
+                'categorie' => $this->getReference('categorie-en-pratique')
+            ],
+            'page-actualités' => [
+                'position' => 1,
+                'isActif' => true,
+                'titreMenu' => 'Actualités',       
+                'categorie' => $this->getReference('categorie-actualités')
+            ],
+            'page-contact' => [
+                'position' => 1,
+                'isActif' => true,
+                'titreMenu' => 'Contact',       
+                'categorie' => $this->getReference('categorie-contact')
+            ],
+            'page-portefeuille-billets' => [
+                'position' => 1,
+                'isActif' => true,
+                'titreMenu' => 'Mon portefeuille de billets Ropi',
+                'categorie' => $this->getReference('categorie-login')
+            ],
+            'page-portefeuille-eRopi' => [
+                'position' => 2,
+                'isActif' => true,
+                'titreMenu' => 'Mon portefeuille électronique (eRopi)',
+                'categorie' => $this->getReference('categorie-login')
+            ],
+            'page-données-utilisateurs' => [
+                'position' => 3,
+                'isActif' => true,
+                'titreMenu' => 'Gérer mes données personnelles',
+                'categorie' => $this->getReference('categorie-login')
+            ],
+            'page-données-commerces' => [
+                'position' => 4,
+                'isActif' => true,
+                'titreMenu' => 'Gérer mes commerces',
+                'categorie' => $this->getReference('categorie-login')
+            ],
+            'page-démocratie-bénévoles' => [
+                'position' => 5,
+                'isActif' => true,
+                'titreMenu' => 'Bénévoles',
+                'categorie' => $this->getReference('categorie-login')
             ]
         ];
 
