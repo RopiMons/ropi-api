@@ -66,7 +66,7 @@ If no container is running (or if one is missing), restart docker-compose
 
 Login into the container
 
-    $ docker exec -ti projects_php-fpm_1 bash 
+    $ docker exec -ti -v ~/.ssh:/home/root/.ssh:ro projects_php-fpm_1 bash 
 
 Get info on your configuration
 
@@ -76,6 +76,10 @@ Donwload dependencies
 
 	$ composer install
 	$ yarn install --force
+
+In newer version 
+
+	$ yarn add force
 
    
 ## Database migration and fixtures loading
@@ -137,3 +141,19 @@ Page commerçants : [http://localhost:3000/commercants](http://localhost:3000/co
 
 
 
+# Use VSCode
+
+Open another WSL bash (no docker) and invoke
+
+	$ cd projects/ropi-api
+	$ code .
+
+
+# Git workflow
+
+	$ git branch my-working-branch
+	$ git pull
+	$ git merge the-other-branch-we-wan-to-merge-in-my-working-branch
+	$ git status
+
+and resolve the conflicts

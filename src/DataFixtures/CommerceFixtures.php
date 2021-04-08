@@ -13,6 +13,7 @@ class CommerceFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager)
     {
 
+        // BUG : typo "lien" devrait être au pluriel "liens" ??
         $array = [
             'Ropi' => [
                 'nom' => 'Ropi ASBL',
@@ -40,12 +41,27 @@ class CommerceFixtures extends Fixture implements DependentFixtureInterface
                 'isComptoir' => true,
                 'lat' => '50.455242',
                 'lon' => '3.893146',
-                'logo' => 'http://mfs0.cdnsw.com/fs/Root/small/al5b0-logo_fcj.png',
+                'logo' => 'https://localhost:8000/images/logo/fcj_petitMarais.png',
                 'lien' => ['FD 1', 'FD 2'],
                 'adresse' => ['Adresse Fonds']
             ],
+            'Halles' => [
+                'nom' => 'Halles coopératives - Farms',
+                'slogan' => 'Marché bio coopératif',
+                'visible' => true,
+                'textColor' => '#ffffff',
+                'createdAt' => new DateTime(),
+                'updateAt' => new DateTime(),
+                'bgImage' => 'https://localhost:8000/images/bgimages/leshallesdumanege_press-03-2.jpg',
+                'isComptoir' => true,
+                'lat' => '50.45699627691573',
+                'lon' => '3.9571948961708836',
+                'logo' => 'https://localhost:8000/images/logo/HallesLogo.png',
+                'lien' => ['Farms 1', 'Farms 2'],
+                'adresse' => ['Adresse Farms']
+            ],
         ];
-
+       
         foreach ($array as $name => $element){
             $object = new Commerce();
             foreach ($element as $proprety => $value){

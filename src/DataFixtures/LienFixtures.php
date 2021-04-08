@@ -32,6 +32,17 @@ class LienFixtures extends Fixture
                 'lastCheck' => new \DateTime(),
                 'isSuspicious' => false
             ]
+            ,
+            'Farms 1' => [
+                'url' => 'https://www.leshallesdumanege.be/',
+                'lastCheck' => new \DateTime(),
+                'isSuspicious' => false
+            ],
+            'Farms 2' => [
+                'url' => 'https://www.facebook.com/farm.leshallescooperatives',
+                'lastCheck' => new \DateTime(),
+                'isSuspicious' => false
+            ]
         ];
 
         foreach ($array as $name => $element){
