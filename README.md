@@ -66,7 +66,7 @@ If no container is running (or if one is missing), restart docker-compose
 
 Login into the container
 
-    $ docker exec -ti -v ~/.ssh:/home/root/.ssh:ro projects_php-fpm_1 bash 
+    $ docker exec -ti projects_php-fpm_1 bash 
 
 Get info on your configuration
 
@@ -150,6 +150,8 @@ Open another WSL bash (no docker) and invoke
 
 
 # Git workflow
+
+Work in host (not in docker)
 
 	$ git branch my-working-branch
 	$ git pull
