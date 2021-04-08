@@ -2,7 +2,9 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
 use App\Repository\CommerceRepository;
 use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -13,6 +15,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * @ORM\Entity(repositoryClass=CommerceRepository::class)
  *
+ * @ApiFilter(filterClass=BooleanFilter::class, properties={"isComptoir"})
+ *
  * @ApiResource(
  *     normalizationContext={"groups"={"read:commerce","read:adresse"}},
  *     collectionOperations={"get"},
@@ -20,7 +24,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     "get" = {"security"="is_granted('view',object)"}
  *      }
  * )
-*/
+ */
 class Commerce
 {
     /**

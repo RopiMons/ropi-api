@@ -27,6 +27,7 @@ class Article
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"read:article:short"})
      */
     private int $id;
 
