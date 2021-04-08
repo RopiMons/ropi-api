@@ -9,16 +9,15 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ApiResource(
- *     normalization_context = {"groups"={"read:article:short"}},
+ *
+ *     normalizationContext = {"groups"={"read:article:short"}},
  *     itemOperations = {
- *     "get" = {
- *          "method"="GET",
- *          "security"="object.actif()"
+ *          "get" = {
+ *              "security"="object.getActif()"
  *     }},
  *     collectionOperations = {
- *          "get" = {
- *              "security"="object.actif()"
- *     }}
+ *          "get"
+ *     }
  * )
  * @ORM\Entity(repositoryClass=ArticleRepository::class)
  */
