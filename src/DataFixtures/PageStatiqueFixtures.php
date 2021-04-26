@@ -14,32 +14,26 @@ class PageStatiqueFixtures extends Fixture implements DependentFixtureInterface
     {
 
         $array = [
-            'page-pourquoi' => [
+            'page-pourquoi-du-comment' => [
                 'position' => 1,     
                 'isActif' => true,
-                'titreMenu' => 'Pourquoi le Ropi ?',
+                'titreMenu' => 'Le pourquoi du comment ',
                 'categorie' => $this->getReference('categorie-a-propos')
-            ],
-            'page-comment' => [
+            ],            
+            'page-vision-mission-valeurs-objectifs' => [                  
                 'position' => 2,
                 'isActif' => true,
-                'titreMenu' => 'Comment fonctionne le Ropi ?',
-                'categorie' => $this->getReference('categorie-a-propos')
-            ],
-            'page-valeurs' => [
-                'position' => 3,
-                'isActif' => true,
-                'titreMenu' => 'Nos valeurs',
+                'titreMenu' => 'Vision, mission, valeurs et objectifs',
                 'categorie' => $this->getReference('categorie-a-propos')
             ],
             'page-monnaie' => [
-                'position' => 4,
+                'position' => 3,
                 'isActif' => true,
                 'titreMenu' => 'La monnaie',
                 'categorie' => $this->getReference('categorie-a-propos')
             ],    
             'page-coulisses' => [
-                'position' => 6,
+                'position' => 4,
                 'isActif' => true,
                 'titreMenu' => 'Les coulisses',
                 'categorie' => $this->getReference('categorie-a-propos')

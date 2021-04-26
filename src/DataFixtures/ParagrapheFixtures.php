@@ -13,41 +13,54 @@ class ParagrapheFixtures extends Fixture implements DependentFixtureInterface
     {
 
         $array = [
-            'paragraphe-Pourquoi MLC' => [
-                'titre' => "Le Ropi ne remplace pas l'euro, il le complémente !",
-                'ref' => 'page-pourquoi',
+            'paragraphe-pourquoi-mlc' => [
+                'titre' => "Pourquoi une monnaie complémentaire ?",
+                'ref' => 'page-pourquoi-du-comment',
                 'position' => 1,
                 'publicationDate' =>  null,
                 'text' => include 'Paragraphes/PourquoiRopi.php' 
-            ],
-            'paragraphe-Comment Depenser' => [
+            ],          
+            'paragraphe-comment-ropi' => [              
+                'titre' => "Comment fonctionne le Ropi ?",                    
+                'ref' => 'page-pourquoi-du-comment',                    
+                'position' => 2,                    
+                'publicationDate' =>  null,                    
+                'text' => include 'Paragraphes/CommentRopi.php'             
+            ],                
+            'paragraphe-comment-depenser' => [
                 'titre' => "Comment dépenser mes Ropi ?",
-                'ref' => 'page-comment',
+                'ref' => 'page-pourquoi-du-comment',
+                'position' => 3,
+                'publicationDate' =>  null,
+                'text' => include 'Paragraphes/depenser.php' 
+            ],
+            'paragraphe-vision' => [
+                'titre' => "Notre vision",
+                'ref' => 'page-vision-mission-valeurs-objectifs',
                 'position' => 1,
                 'publicationDate' =>  null,
-                'text' => "<p>La vocation des Ropi est de circuler, c'est à dire qu'après avoir été injectés dans le circuit par les usagers (<a href=\"https://www.ropi.be/page/Actions/Commander des Ropi\">acheter des Ropi</a>), les Ropi doivent continuer à circuler de commerçants en producteurs et de producteurs en commerçants.</p>
-<p>Si un <strong>goulot d'étranglement</strong> se crée, c'est à dire que des Ropi s'accumulent dans le tiroir-caisse d'un commerçant qui n'arrive pas à les depenser, la monnaie ne remplira pas ses objectifs.</p>
-<p>Mais il existe <strong>pléthore de possibilités pour faire circuler les Ropi.</strong> Nous invitons commerçants et producteurs à les utiliser sans modération! Voyez plutôt :</p>
-<ul>
-<li>Trouver des fournisseurs locaux et les payer en Ropi. Utiliser <a href=\"https://www.ropi.be/commerces\">l'outil de recherche</a> des commerçants et producteurs.</li>
-<li>Se rendre des services entre commerçants, payés en Ropi.</li>
-<li>Reprendre les Ropi de sa caisse (échange contre des euros) et les dépenser à titre personnel (loisirs, culture, achat dans les commerces locaux, ...).</li>
-<li>Echanger des Ropi à un usager (membre ou non) qui en fait la demande.</li>
-<li>Proposer à un usager (membre ou non) de lui rendre la monnaie en Ropi.</li>
-<li>Offrir des Ropi en guise de ristournes (= carte de fidélité mutualisée).</li>
-<li>Rééquilibrer les caisses entre commerçants.</li>
-<li>Payer son repas du midi, une réunion d'affaire en Ropi.</li>
-</ul>
-<p><strong>Bref, il faut que ça circule !</strong></p>
-<p>En enfin, si malgré tout ça il n'est pas possible d'écouler tous ses Ropi, <strong>il reste la possibilité de les&nbsp;<a href=\"https://www.ropi.be/page/Actions/Reconvertir%20des%20Ropi\">reconvertir</a> en euros en s'acquitant d'une taxe de <code>5</code> %</strong>.</p>
-<p><strong>En dernier recours</strong>, la<strong> reconversion à 0 % (sans taxe)</strong> est possible <strong>au dessus d'un certain montant</strong>. En effet, un commerçant qui a vraiment du mal à écouler ses Ropi, peut le signaler à l'asbl qui cherchera alors une solution en collaboration avec le commerçant pour écouler les Ropi. Si aucune solution n'est trouvée endéans les deux semaines, la reconversion à 0% est acceptée pour une durée déterminée, <strong>par tranche de <code>100</code> € pour les asbl et <code>200</code> € pour les prestataires du secteur marchand</strong>.</p>"
+                'text' =>  include 'Paragraphes/vision.php' 
+            ],
+            'paragraphe-mission' => [
+                'titre' => "Notre mission",
+                'ref' => 'page-vision-mission-valeurs-objectifs',
+                'position' => 2,
+                'publicationDate' =>  null,
+                'text' =>  include 'Paragraphes/mission.php' 
             ],
             'paragraphe-valeurs' => [
-                'titre' => "Nos Valeurs",
-                'ref' => 'page-valeurs',
-                'position' => 1,
+                'titre' => "Nos valeurs",
+                'ref' => 'page-vision-mission-valeurs-objectifs',
+                'position' => 3,
                 'publicationDate' =>  null,
-                'text' => "<p> Ceci sont nos valeurs </p>"
+                'text' =>  include 'Paragraphes/valeurs.php' 
+            ],
+            'paragraphe-objectifs' => [
+                'titre' => "Nos objectifs",
+                'ref' => 'page-vision-mission-valeurs-objectifs',
+                'position' => 4,
+                'publicationDate' =>  null,
+                'text' =>  include 'Paragraphes/objectifs.php' 
             ],
             'paragraphe-billets' => [
                 'titre' => "Les billets de Ropi",
@@ -62,7 +75,7 @@ class ParagrapheFixtures extends Fixture implements DependentFixtureInterface
                 'position' => 2,
                 'publicationDate' =>  null,
                 'text' => "<p> Ceci est l'eRopi </p>"
-            ],
+            ],        
             'paragraphe-bénévole' => [
                 'titre' => "Les bénévoles du Ropi",
                 'ref' => 'page-coulisses',
@@ -82,21 +95,21 @@ class ParagrapheFixtures extends Fixture implements DependentFixtureInterface
                 'ref' => 'page-coulisses',
                 'position' => 3,
                 'publicationDate' =>  null,
-                'text' => "<p> Ceci est le ROI</p>"
+                'text' => include 'Paragraphes/roi.php'
             ],
             'paragraphe-status' => [
                 'titre' => "Les Statuts de l'asbl",
                 'ref' => 'page-coulisses',
                 'position' => 4,
                 'publicationDate' =>  null,
-                'text' => "<p> Ceci sont les statuts</p>"
+                'text' => include 'Paragraphes/statuts.php'
             ],
             'paragraphe-charte' => [
                 'titre' => "La Charte",
                 'ref' => 'page-coulisses',
                 'position' => 5,
                 'publicationDate' =>  null,
-                'text' => "<p> Ceci est la charte </p>"
+                'text' =>  include 'Paragraphes/charte.php'
             ],
             'paragraphe-commander' => [
                 'titre' => "Obtenir des Ropi",
