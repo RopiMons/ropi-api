@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\PersonneRepository;
+use DateTime;
 use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -13,6 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ApiResource()
  * @ORM\Entity(repositoryClass=PersonneRepository::class)
+ * @ORM\HasLifecycleCallbacks()
  */
 class Personne
 {
@@ -29,15 +31,9 @@ class Personne
     private int $id;
 
     /**
-     * @ORM\Column(type="string", length=50)
-     * @Assert\Length(
-     *     min=2,
-     *     minMessage="Vous devez avoir un nom de min {{ limit }} caractères.",
-     *     max =50,
-     *     maxMessage="La longeur du nom ne peux pas dépasser {{ limit }} caractères")
-     * @Assert\NotBlank(message="Le nom ne peux pas être vide")
+     * @ORM\Column(type="string", length=50, nullable=true)
      */
-    private string $nom;
+    private ?string $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -52,19 +48,14 @@ class Personne
     private string $prenom;
 
     /**
-     * @ORM\Column(type="date", nullable=true)
-     */
-    private DateTimeInterface $dateNaissance;
-
-    /**
      * @ORM\Column(type="boolean", options={"default":false}))
      */
     private bool $volonteMembre = false;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", options={"default":true}))
      */
-    private bool $actif;
+    private bool $actif = true;
 
     /**
      * @var Collection<Adresse>
@@ -86,7 +77,7 @@ class Personne
 
     /**
      * @var Collection<Contact>
-     * @ORM\OneToMany(targetEntity="App\Entity\Contact", mappedBy="personne")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Contact", mappedBy="personnes")
      */
     private Collection $contacts;
 
@@ -108,9 +99,9 @@ class Personne
         return $this->id;
     }
 
-    public function getNom(): ?string
+    public function getNom(): string
     {
-        return $this->nom;
+        return $this->nom ?? '';
     }
 
     public function setNom(string $nom): self
@@ -128,18 +119,6 @@ class Personne
     public function setPrenom(string $prenom): self
     {
         $this->prenom = $prenom;
-
-        return $this;
-    }
-
-    public function getDateNaissance(): ?DateTimeInterface
-    {
-        return $this->dateNaissance;
-    }
-
-    public function setDateNaissance(DateTimeInterface $dateNaissance): self
-    {
-        $this->dateNaissance = $dateNaissance;
 
         return $this;
     }
@@ -183,9 +162,9 @@ class Personne
     /**
      * Get adresses
      *
-     * @return Collection
+     * @return Collection<Adresse>
      */
-    public function getAdresses()
+    public function getAdresses(): Collection
     {
         $retour = new ArrayCollection();
 
@@ -195,19 +174,15 @@ class Personne
             }
         }
 
-        return ($retour->count() > 0) ? $retour : null;
+        return $retour;
     }
 
     public function getEmail(): ?string
     {
-        /* foreach($this->getContacts() as $contact){
-             if($contact->getTypeContact()->getValidateur()=="Email"){
-                 $mail = $contact->getValeur();
-             }
-         }*/
-
-        if (isset($mail)) {
-            return $mail;
+        foreach ($this->getContacts() as $contact) {
+            if (($typeContact = $contact->getTypeContact()) !== null && $typeContact->getValidateur() === "Email") {
+                return $contact->getValeur();
+            }
         }
 
         return null;
@@ -278,11 +253,9 @@ class Personne
 
     public function removeCommande(Commande $commande): self
     {
-        if ($this->commandes->removeElement($commande)) {
-            // set the owning side to null (unless already changed)
-            if ($commande->getPersonne() === $this) {
-                $commande->setPersonne(null);
-            }
+        // set the owning side to null (unless already changed)
+        if ($this->commandes->removeElement($commande) && $commande->getPersonne() === $this) {
+            $commande->setPersonne(null);
         }
 
         return $this;
@@ -300,7 +273,7 @@ class Personne
     {
         if (!$this->contacts->contains($contact)) {
             $this->contacts[] = $contact;
-            $contact->setPersonne($this);
+            $contact->addPersonne($this);
         }
 
         return $this;
@@ -308,14 +281,20 @@ class Personne
 
     public function removeContact(Contact $contact): self
     {
+        // set the owning side to null (unless already changed)
         if ($this->contacts->removeElement($contact)) {
-            // set the owning side to null (unless already changed)
-            if ($contact->getPersonne() === $this) {
-                $contact->setPersonne(null);
-            }
+            $contact->removePersonne($this);
         }
 
         return $this;
+    }
+
+    /**
+     * @ORM\PrePersist()
+     */
+    public function onPrePersist(): void
+    {
+        $this->setCreatedAt(new DateTime());
     }
 
 }

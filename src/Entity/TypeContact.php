@@ -2,11 +2,18 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use App\Repository\TypeContactRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+ * @ApiResource()
+ * @ApiFilter(SearchFilter::class, properties={"type"="exact"})
+ *
  * @ORM\Entity(repositoryClass=TypeContactRepository::class)
+ *
  */
 class TypeContact
 {
@@ -20,7 +27,7 @@ class TypeContact
     /**
      * @ORM\Column(type="string", length=50)
      */
-    private $string;
+    private $type;
 
     /**
      * @ORM\Column(type="boolean")
@@ -42,14 +49,14 @@ class TypeContact
         return $this->id;
     }
 
-    public function getString(): ?string
+    public function getType(): ?string
     {
-        return $this->string;
+        return $this->type;
     }
 
-    public function setString(string $string): self
+    public function setType(string $type): self
     {
-        $this->string = $string;
+        $this->type = $type;
 
         return $this;
     }

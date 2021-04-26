@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\ContactRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
@@ -27,16 +29,21 @@ class Contact
     private string $valeur;
 
     /**
-     * @var Personne
-     * @ORM\ManyToOne(targetEntity="App\Entity\Personne", inversedBy="contacts")
+     * @var Collection<Personne>
+     * @ORM\ManyToMany(targetEntity="App\Entity\Personne", inversedBy="contacts")
      */
-    private Personne $personne;
+    private Collection $personnes;
 
     /**
      * @var TypeContact
      * @ORM\ManyToOne(targetEntity="App\Entity\TypeContact")
      */
     private TypeContact $typeContact;
+
+    public function __construct()
+    {
+        $this->personnes = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -70,9 +77,7 @@ class Contact
                 $emailValidator->initialize($context);
 
                 $emailValidator->validate($this->valeur, new Assert\Email(array(
-                    'message' => "Ce mail {{ value }} n'est pas valide",
-                    'checkMX' => true,
-                    'checkHost' => true,
+                    'message' => "Ce mail {{ value }} n'est pas valide"
                 )));
                 break;
 
@@ -95,14 +100,28 @@ class Contact
         }
     }
 
-    public function getPersonne(): ?Personne
+    /**
+     * @return Collection<Personne>
+     */
+    public function getPersonnes(): Collection
     {
-        return $this->personne;
+        return $this->personnes;
     }
 
-    public function setPersonne(Personne $personne): self
+    public function addPersonne(Personne $personne): self
     {
-        $this->personne = $personne;
+        if (!$this->personnes->contains($personne)) {
+            $this->personnes[] = $personne;
+        }
+
+
+        return $this;
+    }
+
+    public function removePersonne(Personne $personne): self
+    {
+
+        $this->personnes->removeElement($personne);
 
         return $this;
     }
