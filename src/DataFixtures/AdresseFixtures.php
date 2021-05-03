@@ -15,17 +15,13 @@ class AdresseFixtures extends Fixture implements DependentFixtureInterface
         $array = [
             'Adresse Ropi' => [
                 'actif' => true,
-                'numero' => '32',
-                'rue' => 'Chemin du Ropi',
-                'pays' => $this->getReference('Be'),
+                'rueNumero' => 'Chemin du Ropi, 32',
                 'typeAdresse' => Adresse::COMMERCE,
                 'ville' => $this->getReference('Mons')
             ],
             'Adresse Fonds' => [
                 'actif' => true,
-                'numero' => '24',
-                'rue' => 'Rue de Ghlin',
-                'pays' => $this->getReference('Be'),
+                'rueNumero' => 'Rue de Ghlin, 24',
                 'typeAdresse' => Adresse::COMMERCE,
                 'ville' => $this->getReference('Jemappes')
             ]
@@ -49,8 +45,7 @@ class AdresseFixtures extends Fixture implements DependentFixtureInterface
     public function getDependencies()
     {
         return [
-            VilleFixtures::class,
-            PaysFixtures::class
+            VilleFixtures::class
         ];
     }
 }

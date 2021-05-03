@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=AdresseRepository::class)
@@ -23,9 +24,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
  */
 class Adresse
 {
-    const COMMERCE = 'commerce';
-    const FACTURATION = 'facturation';
-    const LIVRAISON = 'livraison';
+    public const COMMERCE = 'commerce';
+    public const FACTURATION = 'facturation';
+    public const LIVRAISON = 'livraison';
 
 
     /**
@@ -40,47 +41,46 @@ class Adresse
     /**
      * @ORM\Column(type="string", length=255)
      *
+     * @Assert\Length(max=254, min=4)
+     *
+     * @Assert\NotNull()
+     *
+     * @Assert\Regex(pattern="/^.*(\d)+(.)*$/", message="N'oubliez pas de mettre votre numéro de maison")
+     *
      * @Groups({"read:adresse"})
      */
-    private string $rue;
+    private string $rueNumero;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private bool $actif;
+    private bool $actif = true;
 
-    /**
-     * @ORM\Column(type="string", length=10)
-     *
-     * @Groups({"read:adresse"})
-     */
-    private string $numero;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      *
      * @Groups({"read:adresse"})
      */
-    private ?string $complement;
+    private ?string $complement = null;
 
     /**
      * @var Ville
      * @ORM\ManyToOne(targetEntity="App\Entity\Ville")
      *
+     * @Assert\Valid()
+     *
      * @Groups({"read:adresse"})
      */
     private Ville $ville;
 
-    /**
-     * @var Pays
-     * @ORM\ManyToOne(targetEntity="App\Entity\Pays")
-     *
-     * @Groups({"read:adresse"})
-     */
-    private Pays $pays;
 
     /**
      * @ORM\Column(type="string", length=100)
+     *
+     * @Assert\Expression("value in [Adresse::LIVRAISON, Adresse::FACTURATION, Adresse::COMMERCE]")
+     * @Assert\NotNull()
+     *
      */
     private string $typeAdresse;
 
@@ -110,12 +110,12 @@ class Adresse
 
     public function getRue(): ?string
     {
-        return $this->rue;
+        return $this->rueNumero;
     }
 
     public function setRue(string $rue): self
     {
-        $this->rue = $rue;
+        $this->rueNumero = $rue;
 
         return $this;
     }
@@ -128,18 +128,6 @@ class Adresse
     public function setActif(bool $actif): self
     {
         $this->actif = $actif;
-
-        return $this;
-    }
-
-    public function getNumero(): ?string
-    {
-        return $this->numero;
-    }
-
-    public function setNumero(string $numero): self
-    {
-        $this->numero = $numero;
 
         return $this;
     }
@@ -182,18 +170,6 @@ class Adresse
         return $this;
     }
 
-    public function getPays(): ?Pays
-    {
-        return $this->pays;
-    }
-
-    public function setPays(Pays $pays): self
-    {
-        $this->pays = $pays;
-
-        return $this;
-    }
-
     public function getCommerce(): ?Commerce
     {
         return $this->commerce;
@@ -229,6 +205,18 @@ class Adresse
         if ($this->personnes->removeElement($personne)) {
             $personne->removeAdress($this);
         }
+
+        return $this;
+    }
+
+    public function getRueNumero(): ?string
+    {
+        return $this->rueNumero;
+    }
+
+    public function setRueNumero(string $rueNumero): self
+    {
+        $this->rueNumero = $rueNumero;
 
         return $this;
     }

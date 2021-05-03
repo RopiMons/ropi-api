@@ -15,7 +15,7 @@ class PaysFixtures extends Fixture
             'Be' => [
                 'nom' => 'Belgique',
                 'nomCourt' => 'Be',
-                'regexCodePostal' => '^[1-9]{1}[0-9]{3}$'
+                'regexCodePostal' => '^[1-9]\d{3}$'
             ],
             'Fr' => [
                 'nom' => 'France',

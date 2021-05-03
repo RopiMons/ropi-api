@@ -2,8 +2,11 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
+use App\DTO\CommandeInput;
 use App\Repository\CommandeRepository;
+use DateTime;
 use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -11,10 +14,12 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ApiResource(
- *
+ *     input=CommandeInput::class
  * )
  *
  * @ORM\Entity(repositoryClass=CommandeRepository::class)
+ *
+ * @ORM\HasLifecycleCallbacks()
  *
  */
 class Commande
@@ -23,6 +28,7 @@ class Commande
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @ApiProperty(identifier=true)
      */
     private int $id;
 
@@ -62,7 +68,19 @@ class Commande
      * @var Adresse
      * @ORM\ManyToOne(targetEntity="App\Entity\Adresse")
      */
-    private Adresse $adresseDeLivraison;
+    private ?Adresse $adresseDeLivraison;
+
+    /**
+     * @var Commerce|null
+     * @ORM\ManyToOne(targetEntity="App\Entity\Commerce")
+     */
+    private ?Commerce $pointDepot;
+
+    /**
+     * @var Contact
+     * @ORM\ManyToOne(targetEntity="App\Entity\Contact")
+     */
+    private Contact $preferedMail;
 
     /**
      * @var Collection<Paiement>
@@ -70,9 +88,16 @@ class Commande
      */
     private Collection $paiements;
 
+    /**
+     * @var Collection<ArticleCommande>
+     * @ORM\OneToMany(targetEntity="App\Entity\ArticleCommande", mappedBy="commande")
+     */
+    private Collection $articlesQuantite;
+
     public function __construct()
     {
         $this->paiements = new ArrayCollection();
+        $this->articlesQuantite = new ArrayCollection();
     }
 
     public function getCreatedAt(): ?DateTimeInterface
@@ -99,6 +124,7 @@ class Commande
         return $this;
     }
 
+
     public function calcRefCommande()
     {
         $annee = date('Y');
@@ -112,7 +138,7 @@ class Commande
         }
         $modulo = (int)$chaine % 97;
 
-        if (ceil(log10($modulo)) == 1) {
+        if ((int)ceil(log10($modulo)) === 1) {
             $modulo = substr_replace($modulo, "0", 0, 0);
         }
 
@@ -220,6 +246,71 @@ class Commande
     public function setPersonne(Personne $personne): self
     {
         $this->personne = $personne;
+        return $this;
+    }
+
+    public function getPreferedMail(): ?Contact
+    {
+        return $this->preferedMail;
+    }
+
+    public function setPreferedMail(Contact $preferedMail): self
+    {
+        $this->preferedMail = $preferedMail;
+
+        return $this;
+    }
+
+    /**
+     * @ORM\PrePersist()
+     */
+    public function onPrePersist()
+    {
+        $this->calcRefCommande();
+        $now = new DateTime();
+        $this->setCreatedAt($now);
+        $this->setUpdatedAt($now);
+    }
+
+    /**
+     * @return Collection|ArticleCommande[]
+     */
+    public function getArticlesQuantite(): Collection
+    {
+        return $this->articlesQuantite;
+    }
+
+    public function addArticlesQuantite(ArticleCommande $articlesQuantite): self
+    {
+        if (!$this->articlesQuantite->contains($articlesQuantite)) {
+            $this->articlesQuantite[] = $articlesQuantite;
+            $articlesQuantite->setCommande($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArticlesQuantite(ArticleCommande $articlesQuantite): self
+    {
+        if ($this->articlesQuantite->removeElement($articlesQuantite)) {
+            // set the owning side to null (unless already changed)
+            if ($articlesQuantite->getCommande() === $this) {
+                $articlesQuantite->setCommande(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getPointDepot(): ?Commerce
+    {
+        return $this->pointDepot;
+    }
+
+    public function setPointDepot(?Commerce $pointDepot): self
+    {
+        $this->pointDepot = $pointDepot;
+
         return $this;
     }
 
