@@ -67,14 +67,14 @@ class ParagrapheFixtures extends Fixture implements DependentFixtureInterface
                 'ref' => 'page-monnaie',
                 'position' => 1,
                 'publicationDate' =>  null,
-                'text' => "<p> Ceci sont nos billets </p>"
+                'text' => include 'Paragraphes/billet.php'
             ],
             'paragraphe-electronique' => [
                 'titre' => "Le Ropi électronique (eRopi)",
                 'ref' => 'page-monnaie',
                 'position' => 2,
                 'publicationDate' =>  null,
-                'text' => "<p> Ceci est l'eRopi </p>"
+                'text' => include 'Paragraphes/spe.php'
             ],        
             'paragraphe-bénévole' => [
                 'titre' => "Les bénévoles du Ropi",
