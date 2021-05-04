@@ -1,19 +1,21 @@
 # Run ropi-api and ropi-frontend with docker
 
+> CHANGELOG:
+> 2021-05-03 : separate the frontend and api containers. 
+
 ## Prepare the project directory 
 
 Howto from [https://webdevpro.net/utiliser-symfony-dans-docker/](https://webdevpro.net/utiliser-symfony-dans-docker/)
 
 Use Docker on Windows with WSL2 backend enable (install ubuntu from Microsoft store), or use on Docker on Linux. 
 
-
 Configure git in your host machine (use your own name and email!)
-   
+
    	$ git config --global user.name "Fabian Dortu" 
-        $ git config --global user.email fdortu@fastmail.net
-   
-Clone the repositories `ropi-api` and `ropi-frontend` in `~project` and go to your developement branch (or create a new one.)
-   	
+   	$ git config --global user.email fdortu@fastmail.net
+
+Clone the repositories `ropi-api` and `ropi-frontend` in `~project` and go to your development branch (or create a new one.)
+
 	$ mkdir ~project
 	$ cd ~project
 	$ git clone https://github.com/RopiMons/ropi-api.git
@@ -21,125 +23,102 @@ Clone the repositories `ropi-api` and `ropi-frontend` in `~project` and go to yo
 	$ git https://github.com/RopiMons/ropi-frontend.git
 	$ git chekcout front-end-dev
 
-Copy `ropi-api/Dockerfile` and `ropi-api/docker-compose.yml` in `~projects`
+## Build the docker images 
 
-	$ cp ropi-api/Dockerfile .
-	$ cp ropi-api/docker-compose.yml .
-   
-## Build the docker image and start the container
+ Create the docker images from `docker-compose.yml`
 
 	$ cd ~project
-	$ docker-compose up -d 
-      
-> note : if you change the `docker-compose.yml` file, just re-run 
+	$ cp ropi-api/docker-compose.yml .
+	$ docker-compose build
+
+If any issue to build the image, do some clean up :
 > `docker stop $(docker ps -q)`
 > `docker rm $(docker ps -a -q)`
-> `docker-compose up -d`  
-> 
-> To rebuild the image if the Dockerfile has been modified use `docker-compose build` or `docker-compose up --build`
 > You may need to remove all the images before `docker rmi $(docker images -q)`
-> If you really want to have a clean docke, then invoke `docker volume prune`
-   
-This will create 3 images :
+> If you really want to have a clean docker, then invoke `docker volume prune`
+
+This will create 4 images :
 
 	$ docker images
 	REPOSITORY              TAG       IMAGE ID       CREATED        SIZE
-	projects_php-fpm        latest    91470127316e   3 hours ago    164MB
-	mysql                   latest    14340cbfa999   33 hours ago   546MB
-	phpmyadmin/phpmyadmin   latest    5c9aca5dc2b1   2 weeks ago    477MB
+	projects_php-fpm-frontend     ... 
+	projects_php-fpm-api          ... 
+	mysql						  ...
+	phpmyadmin/phpmyadmin         ...
 
+## Start the containers
 
-## Execute an interactive bash in the container
+	$ docker-compose up -d 
 
 List the running containers
 
 	$ docker ps
-	CONTAINER ID   IMAGE                   COMMAND                  CREATED          STATUS         PORTS                                                    NAMES
-	4637cad8fd98   projects_php-fpm        "docker-php-entrypoi…"   7 seconds ago    Up 6 seconds   0.0.0.0:3000->3000/tcp, 9000/tcp, 0.0.0.0:80->8000/tcp   projects_php-fpm_1
-	928cff3b768e   phpmyadmin/phpmyadmin   "/docker-entrypoint.…"   23 minutes ago   Up 3 seconds   0.0.0.0:8080->80/tcp                                     projects_phpmyadmin_1
-	7cd0ed81d1bd   mysql                   "docker-entrypoint.s…"   23 minutes ago   Up 6 seconds   3306/tcp, 33060/tcp                                      projects_mysql_1
+	CONTAINER ID   IMAGE                       COMMAND                  CREATED             STATUS          PORTS                              NAMES
+	be7e184b1b5c   projects_php-fpm-api        "docker-php-entrypoi…"   About an hour ago   Up 15 minutes   0.0.0.0:8000->8000/tcp, 9000/tcp   projects_php-fpm-api_1
+	e29c91aaf16b   projects_php-fpm-frontend   "docker-php-entrypoi…"   About an hour ago   Up 15 minutes   0.0.0.0:3000->3000/tcp, 9000/tcp   projects_php-fpm-frontend_1
+	7183ae3d4c63   phpmyadmin/phpmyadmin       "/docker-entrypoint.…"   4 hours ago         Up 15 minutes   0.0.0.0:8080->80/tcp               projects_phpmyadmin_1
+	55cc6e8b85e7   mysql                       "docker-entrypoint.s…"   4 hours ago         Up 15 minutes   3306/tcp, 33060/tcp                projects_mysql_1
 
-If no container is running (or if one is missing), restart docker-compose
+## Execute an interactive bash in the containers
 
-	$ cd ~project
-	$ docker-compose up -d 
+### api container
 
-Login into the container
+    $ docker exec -ti projects_php-fpm-api_1 bash 
+    $$ symfony server:start
 
-    $ docker exec -ti projects_php-fpm_1 bash 
+Open [https://localhost:8000](https://localhost:8000) in your browser to see symphony running and  [https://localhost:8000/api](https://localhost:8000/api) to see the api of ropi-api
 
-Get info on your configuration
+> Note : have a look at `./entrypoint.sh` to see what has been executed when docker-compose  was launched. 
+> Note :  you may need to recompile the javascript (`yarn dev`) 
+> Note :  you may need to configure the mysql db fthe first time (see hereafter), and reload the fixtures after having edited them.
 
-	$ php bin/console about
+### frontend container
 
-Donwload dependencies
+    $ docker exec -ti projects_php-fpm-frontend_1 bash 
+    $$ yarn dev
 
-	$ composer install
-	$ yarn install --force
+Open [http://localhost:3000/](http://localhost:3000/) in your brower to see the front-end running
+Page commerçants : [http://localhost:3000/commercants](http://localhost:3000/commercants)
 
-In newer version 
 
-	$ yarn add force
+> Have a look at `./entrypoint.sh` to see what has been  executed when docker-compose  was launched. 
+>
+> Note : from the this container, the api container is accessible with php-fpm-api:8000 
+> in `~project/ropi-frontentdcomponents/services/ApiCaller.js`, remplace `localhost:8000` par `php-fpm-api:8000`  (the host name is given in `docker-compose.yml`).
 
-   
-## Database migration and fixtures loading
+## mysql database migration and fixtures loading
 
-MySQL server already runs on [localhost:8080](http://localhost:8080). You can obtain the mysql version from there (which you need for configuring .env.local).   
-   
+MySQL server runs in the mysql container and can be accedded on [localhost:8080](http://localhost:8080). You can obtain the mysql version from there (which you need for configuring .env.local).   
+
 Edit `ropi-api/.env.local` to match the database login info (user name/ password / database name and mysql version)
 	
 	$ cp .env .env.local
 	$ vi .env.local
 	DATABASE_URL=mysql://root:ropipass@mysql:3306/dbropi?serverVersion=8.0.23
-	
+
+Execute the api container 
+
+	$ docker exec -ti projects_php-fpm-api_1 bash
+
 Check if the setting are correct by invoking (if you get the error that the db exists, it's fine!)
 
-    $ cd ropi-api
-    $ php bin/console doctrine:database:create
+    $$ cd ropi-api
+    $$ php bin/console doctrine:database:create
 
 In case of problem, remove the db and create it again
 
-    $ php bin/console doctrine:database:drop --force
-   
+    $$ php bin/console doctrine:database:drop --force
+
 Migrade db et load the data
 
-    $ php bin/console doctrine:migrations:migrate 
-    $ php bin/console doctrine:fixtures:load 
-   
-## Compile the javascritps
+    $$ php bin/console doctrine:migrations:migrate 
+    $$ php bin/console doctrine:fixtures:load 
 
-    $ cd ropi-api
-    $ yarn
-    $ yarn dev
-    
-## Start symfony server  
-
-	$ cd ropi-api
-	$ symfony server:ca:install
-	$ symfony server:start
-	
-Open [https://localhost:8000](https://localhost:8000) in your browser to see symphony running
-	
-Open [https://localhost:8000/api](https://localhost:8000/api) to see the api of ropi-api
-	 
-## Start front-end server
-
-Login to the same running container
-	
-	$ docker exec -ti projects_php-fpm_1 bash
-	$ cd ropi-frontend
-	$ yarn dev
-	
-Open [http://localhost:3000/](http://localhost:3000/) in your brower to see the front-end running
-Page commerçants : [http://localhost:3000/commercants](http://localhost:3000/commercants)
-   
-# Edit the static content of the site
+## Edit the static content of the site
 
 - Menu niv0(titre du menu) `ropi-api/src/CategorieFixtures.php`
 - Menu niv1(sous-menu) = page  `ropi-api/src/PageStatiqueFixture.php`
 - Menu niv2(sous-sous menu) = paragraphe dans page = `ropi-api/src/PragrapheFixture.php`
-
-
 
 # Use VSCode
 
@@ -147,7 +126,6 @@ Open another WSL bash (no docker) and invoke
 
 	$ cd projects/ropi-api
 	$ code .
-
 
 # Git workflow
 

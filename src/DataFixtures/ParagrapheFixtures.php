@@ -81,7 +81,7 @@ class ParagrapheFixtures extends Fixture implements DependentFixtureInterface
                 'ref' => 'page-coulisses',
                 'position' => 1,
                 'publicationDate' =>  null,
-                'text' => "<p> Ceci sont nos bénévoles </p>"
+                'text' => include 'Paragraphes/equipe.php'
             ],
             'paragraphe-chiffres' => [
                 'titre' => "Les chiffres / bilan ",

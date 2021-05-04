@@ -19,8 +19,10 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" &&
 # Symfony CLI
 RUN wget https://get.symfony.com/cli/installer -O - | bash && mv /root/.symfony/bin/symfony /usr/local/bin/symfony
 
-WORKDIR /var/www/html
+WORKDIR /var/www/html/ropi-api
 
-# TODO add CMD to automize initialization ? Only one CMD allowed!
-#CMD cd ropi-api && yarn && yarn dev 
-#CMD symfony server:start& 
+COPY entrypoint.sh /var/www/html/ropi-api/entrypoint.sh
+RUN ["chmod", "+x", "/var/www/html/ropi-api/entrypoint.sh"]
+#ENTRYPOINT ["/var/www/html/ropi-api/entrypoint.sh"]
+#CMD ["symfony", "server:start"]
+
