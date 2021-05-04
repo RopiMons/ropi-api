@@ -25,7 +25,7 @@ Clone the repositories `ropi-api` and `ropi-frontend` in `~project` and go to yo
 
 ## Build the docker images 
 
- Create the docker images from `docker-compose.yml`
+Create the docker images from `docker-compose.yml` (it is git stored in ~/ropi-api but it needs to be copied one level up to be used)
 
 	$ cd ~project
 	$ cp ropi-api/docker-compose.yml .
@@ -48,7 +48,19 @@ This will create 4 images :
 
 ## Start the containers
 
-	$ docker-compose up -d 
+	$ docker-compose up
+
+The output of each container will show in the console with a specific color for each.
+
+Entry points are configured so that symfony server and node js will be automatically started.
+
+Open https://localhost:8000 in your browser to see symphony running and  https://localhost:8000/api to see the api of ropi-api
+
+Open [http://localhost:3000/](http://localhost:3000/) in your browser to see the front-end running. Page commerçants : [http://localhost:3000/commercants](http://localhost:3000/commercants)
+
+**If this is your first time, things will not work yet because you first need to configure the db and the .env.local. See Section *Configuration of the local environments* at the end of the document.**
+
+## Execute an interactive bash in the containers
 
 List the running containers
 
@@ -59,34 +71,43 @@ List the running containers
 	7183ae3d4c63   phpmyadmin/phpmyadmin       "/docker-entrypoint.…"   4 hours ago         Up 15 minutes   0.0.0.0:8080->80/tcp               projects_phpmyadmin_1
 	55cc6e8b85e7   mysql                       "docker-entrypoint.s…"   4 hours ago         Up 15 minutes   3306/tcp, 33060/tcp                projects_mysql_1
 
-## Execute an interactive bash in the containers
-
 ### api container
 
     $ docker exec -ti projects_php-fpm-api_1 bash 
-    $$ symfony server:start
 
-Open [https://localhost:8000](https://localhost:8000) in your browser to see symphony running and  [https://localhost:8000/api](https://localhost:8000/api) to see the api of ropi-api
+> Note : have a look at `./entrypoint.sh` to see what has been executed when `docker-compose up`  was launched. 
 
-> Note : have a look at `./entrypoint.sh` to see what has been executed when docker-compose  was launched. 
-> Note :  you may need to recompile the javascript (`yarn dev`) 
-> Note :  you may need to configure the mysql db fthe first time (see hereafter), and reload the fixtures after having edited them.
-
+Useful commands:
+- recompile the javascript `yarn dev`
+- reload the fixtures : `yes | php bin/console doctrine:fixtures:load`
 ### frontend container
 
     $ docker exec -ti projects_php-fpm-frontend_1 bash 
-    $$ yarn dev
-
-Open [http://localhost:3000/](http://localhost:3000/) in your brower to see the front-end running
-Page commerçants : [http://localhost:3000/commercants](http://localhost:3000/commercants)
-
 
 > Have a look at `./entrypoint.sh` to see what has been  executed when docker-compose  was launched. 
->
-> Note : from the this container, the api container is accessible with php-fpm-api:8000 
-> in `~project/ropi-frontentdcomponents/services/ApiCaller.js`, remplace `localhost:8000` par `php-fpm-api:8000`  (the host name is given in `docker-compose.yml`).
 
-## mysql database migration and fixtures loading
+# Configuration of the local environments
+
+## frontend
+
+### .env.local
+
+Create `~project/ropi-frontend/.env.local` with the facebook secrets
+
+	$ cat .env.local
+	FB_PAGEID="..."
+	FB_SECRET="...."
+	FB_APPID="...."
+
+### Configure the url of ropi-api (ApiCaller.js)
+
+From the frontend container, the api container is accessed with url `php-fpm-api:8000`. 
+
+So, in `~project/ropi-frontend/components/services/ApiCaller.js`, replace `localhost:8000` by `php-fpm-api:8000`  (the host name is given in `docker-compose.yml`).
+
+## api
+
+### mysql database creation 
 
 MySQL server runs in the mysql container and can be accedded on [localhost:8080](http://localhost:8080). You can obtain the mysql version from there (which you need for configuring .env.local).   
 
@@ -96,23 +117,22 @@ Edit `ropi-api/.env.local` to match the database login info (user name/ password
 	$ vi .env.local
 	DATABASE_URL=mysql://root:ropipass@mysql:3306/dbropi?serverVersion=8.0.23
 
-Execute the api container 
+Create a new db if not already done
 
 	$ docker exec -ti projects_php-fpm-api_1 bash
-
-Check if the setting are correct by invoking (if you get the error that the db exists, it's fine!)
-
-    $$ cd ropi-api
-    $$ php bin/console doctrine:database:create
+	$$ php bin/console doctrine:database:create
 
 In case of problem, remove the db and create it again
 
     $$ php bin/console doctrine:database:drop --force
 
-Migrade db et load the data
+### mysql database migration and fixtures loading 
 
-    $$ php bin/console doctrine:migrations:migrate 
-    $$ php bin/console doctrine:fixtures:load 
+	$ docker exec -ti projects_php-fpm-api_1 bash
+	$$ php bin/console doctrine:migrations:migrate 
+	$$ php bin/console doctrine:fixtures:load 
+
+# Miscellaneous  
 
 ## Edit the static content of the site
 
@@ -120,7 +140,7 @@ Migrade db et load the data
 - Menu niv1(sous-menu) = page  `ropi-api/src/PageStatiqueFixture.php`
 - Menu niv2(sous-sous menu) = paragraphe dans page = `ropi-api/src/PragrapheFixture.php`
 
-# Use VSCode
+## Use VSCode
 
 Open another WSL bash (no docker) and invoke
 
