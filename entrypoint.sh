@@ -6,6 +6,6 @@ yarn add force
 yarn dev
 yes | php bin/console doctrine:migrations:migrate
 yes | php bin/console doctrine:fixtures:load
-symfony server:ca:install
-symfony server:start
+yes | symfony server:ca:install
+yes | symfony server:start
 tail -F /dev/null
