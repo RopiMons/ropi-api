@@ -23,7 +23,7 @@ Il circule en parall&egrave;le &agrave; l'euro (&euro;), et par facilit&eacute;,
 
 
 <h4 style=\"padding-left: 30px; text-align: center;\">&nbsp;
-    <img src=\"https://localhost:8000/images/cms/component_parite.png\" 
+    <img src=\"https://github.com/RopiMons/RopiDocs/raw/master/Visuels/Icones/component_parite.png\" 
     alt=\"1 Ropi = 1 Euro + &eacute;nergie positive!\" 
     width=\"400\"  />
 </h4>

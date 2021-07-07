@@ -20,7 +20,7 @@ return "
 <table style=\"margin-left: auto; margin-right: auto\">
 <tbody>
 <tr>
-<td><img src=\"https://localhost:8000/images/cms/component_comptoir.png\" alt=\"Comptoir d'échange\" width=\"100\"  /></td>
+<td><img src=\"https://github.com/RopiMons/RopiDocs/raw/master/Visuels/Icones/component_comptoir.png\" alt=\"Comptoir d'échange\" width=\"100\"  /></td>
 <td><h3><strong>&nbsp; Des citoyens consom'acteurs décident de se procurer des Ropi</strong></h3></td>
 </tr>
 </tbody>
@@ -54,7 +54,7 @@ mais elle a le mérite d'aider le commerçant à écouler ses Ropi.</h4>
 <table style=\"margin-left: auto; margin-right: auto\">
 <tbody>
 <tr>
-<td><img src=\"https://localhost:8000/images/cms/component_commercant.png\" alt=\"Commerçant\" width=\"100\"  /></td>
+<td><img src=\"https://github.com/RopiMons/RopiDocs/raw/master/Visuels/Icones/component_commercant.png\" alt=\"Commerçant\" width=\"100\"  /></td>
 <td><strong><h3>&nbsp; Les citoyens se rendent chez des prestataire</strong> <strong>acceptant le Ropi</h3></strong></td>
 </tr>
 </tbody>
@@ -87,7 +87,7 @@ width=\"400\"  />
 <table style=\"margin-left: auto; margin-right: auto\">
 <tbody>
 <tr>
-<td><img src=\"https://localhost:8000/images/cms/component_producteur.png\" alt=\"Producteurs\" width=\"100\" /></td>
+<td><img src=\"https://github.com/RopiMons/RopiDocs/raw/master/Visuels/Icones/component_producteur.png\" alt=\"Producteurs\" width=\"100\" /></td>
 <td><h3><strong>&nbsp; Les prestataires s'approvisionnent chez des fournisseurs acceptant les Ropi</strong></h3></td>
 </tr>
 </tbody>
