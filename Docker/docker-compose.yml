@@ -1,37 +1,29 @@
 version: '3.3'
 
 services:
-  php-fpm-api:
-    build: ./ropi-api/
+  php-fpm-ropi-api:
+    build: .
     ports:
       - 8000:8000
     volumes:
-      - ./:/var/www/html
-    command: sh -c "/var/www/html/ropi-api/entrypoint.sh"
-    tty: true
-  php-fpm-frontend:
-    depends_on:
-      - php-fpm-api
-    build: ./ropi-frontend/
-    ports:
-      - 3000:3000
-    volumes:
-      - ./:/var/www/html
-    command: sh -c "/var/www/html/ropi-frontend/entrypoint.sh"
-    tty: true
-  mysql:
-    image: mysql
-    command: --default-authentication-plugin=mysql_native_password
+      - ./..:/var/www/html
+
+  mariadb-ropi-api:
+    image: mariadb
     restart: always
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+      - ./mariadb-data:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: ropipass
       MYSQL_DATABASE: dbropi
-  phpmyadmin:
+
+  phpmyadmin-ropi-api:
     depends_on:
-      - mysql
+      - mariadb-ropi-api
     image: phpmyadmin/phpmyadmin
     restart: always
     ports:
       - '8080:80'
     environment:
-      PMA_HOST: mysql
+      PMA_HOST:  mariadb-ropi-api
