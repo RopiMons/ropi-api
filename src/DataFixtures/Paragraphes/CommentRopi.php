@@ -20,8 +20,8 @@ return "
 <table style=\"margin-left: auto; margin-right: auto\">
 <tbody>
 <tr>
-<td><img src=\"https://github.com/RopiMons/RopiDocs/raw/master/Visuels/Icones/component_comptoir.png\" alt=\"Comptoir d'échange\" width=\"100\"  /></td>
-<td><h3><strong>&nbsp; Des citoyens consom'acteurs décident de se procurer des Ropi</strong></h3></td>
+<td><img src=\"https://raw.githubusercontent.com/RopiMons/RopiDocs/master/WebSite/images/component_comptoir.png\" alt=\"Comptoir d'échange\" width=\"100\"  /></td>
+<td><h3><strong>&nbsp; Vous, citoyens consom'acteurs décidez de vous procurer des Ropi</strong></h3></td>
 </tr>
 </tbody>
 </table>
@@ -31,17 +31,19 @@ return "
 <ul>
 <li>
 <h4 style=\"line-height: 200%; padding-left: 30px;\">
-<strong>En commandant des Ropi <a href=\"../../../../page/Actions/Commander%20des%20Ropi\">par internet</a> </strong>
-(paiement par virement bancaire), et se les faire livrer dans un commerce de son choix ou à domicile
-(livraison par un bénévole, le coursier montois ou par la poste). L'achat par internet est encouragé 
-car il permet de grandir la masse de Ropi en circulation, et par conséquent le fonds de garantie en euros.</h4>
+<strong>En commandant des Ropi {[par internet](frontend-page:commande)} </strong> papiers ou électroniques.
+Vous réglez par virement bancaire, 
+puis les Ropi papiers vous sont livrés chez un de nos {[commerces comptoir-de-change](frontend-page:commercants?commerces.isComptoir=true)} 
+de votre choix ou à domicile (avec frais postaux). 
+L'achat de Ropi par internet est encouragé car il permet de grandir la masse de Ropi en circulation et ainsi d'augmenter l'impact du projet.</h4>
 </li>
 <li>
 <h4 style=\"line-height: 200%; padding-left: 30px;\">
-<strong>En se rendant chez un <a href=\"../../../../commerces\">commerçant qui accepte le Ropi</a></strong>, 
-et lui acheter des Ropi dans la limite de disponibilité de son tiroir-caisse. 
+<strong>En vous rendant chez un {[commerçant qui accepte le Ropi](frontend-page:commercants)}</strong>, 
+et en lui achetant des Ropi dans la limite de disponibilité de son tiroir-caisse. 
 Cette façon de se procurer des Ropi ne fait pas grandir la masse monétaire en Ropi, 
-mais elle a le mérite d'aider le commerçant à écouler ses Ropi.</h4>
+mais elle a le mérite d'aider le commerçant à écouler ses Ropi. Cependant, il reste  préférable que le commerçant utilise ses Ropi 
+pour acheter ses marchandises chez un fournisseur local, car ainsi l'objectif de relocalisation de l'économie est atteint !</h4>
 </li>
 </ul>
 
@@ -54,8 +56,8 @@ mais elle a le mérite d'aider le commerçant à écouler ses Ropi.</h4>
 <table style=\"margin-left: auto; margin-right: auto\">
 <tbody>
 <tr>
-<td><img src=\"https://github.com/RopiMons/RopiDocs/raw/master/Visuels/Icones/component_commercant.png\" alt=\"Commerçant\" width=\"100\"  /></td>
-<td><strong><h3>&nbsp; Les citoyens se rendent chez des prestataire</strong> <strong>acceptant le Ropi</h3></strong></td>
+<td><img src=\"https://raw.githubusercontent.com/RopiMons/RopiDocs/master/WebSite/images/component_commercant.png\" alt=\"Commerçant\" width=\"100\"  /></td>
+<td><strong><h3>&nbsp; Vous vous rendez chez un prestataire</strong> <strong>acceptant le Ropi</h3></strong></td>
 </tr>
 </tbody>
 </table>
@@ -64,13 +66,13 @@ mais elle a le mérite d'aider le commerçant à écouler ses Ropi.</h4>
 
 <h4 style=\"line-height: 200%; padding-left: 30px;\">La <strong>liste des prestataires</strong> 
 (commerçants, artisants, agriculteurs, prestataires de services, ...) est consultable 
-via <a href=\"../../../../commerces\"><strong>la carte et l'outil de recherche</strong></a> <strong>des commerces</strong>.
-Le plus souvent, les commerçants arboreront aussi un <strong>autocollant en vitrine 
-ou à l'intérieur du magasin</strong> indiquant qu'ils acceptent les Ropi.
+via {[la page de recherche des prestataires](frontend-page:commercants)}.
+Le plus souvent, les commerçants arboreront aussi un <strong>autocollant Ropi en vitrine 
+ou à l'intérieur du magasin</strong>.
 </h4>
 
 <h4 style=\"text-align: right;\">&nbsp;<img style=\"display: block; margin-left: auto; margin-right: auto;\" 
-src=\"https://github.com/RopiMons/RopiDocs/raw/master/Visuels/AutoCollant/Ropi-autocollant-oui1.png\" 
+src=\"https://raw.githubusercontent.com/RopiMons/RopiDocs/master/WebSite/images/autocollants/Ropi-autocollant-oui1.png\" 
 alt=\"autocollant\" 
 width=\"400\"  />
 </h4>
@@ -87,32 +89,43 @@ width=\"400\"  />
 <table style=\"margin-left: auto; margin-right: auto\">
 <tbody>
 <tr>
-<td><img src=\"https://github.com/RopiMons/RopiDocs/raw/master/Visuels/Icones/component_producteur.png\" alt=\"Producteurs\" width=\"100\" /></td>
-<td><h3><strong>&nbsp; Les prestataires s'approvisionnent chez des fournisseurs acceptant les Ropi</strong></h3></td>
+<td><img src=\"https://raw.githubusercontent.com/RopiMons/RopiDocs/master/WebSite/images/component_producteur.png\" alt=\"Producteurs\" width=\"100\" /></td>
+<td><h3><strong>&nbsp; Les prestataires jouent le jeu du Ropi !</strong></h3></td>
 </tr>
 </tbody>
 </table>
 
 <br>
 
-<h4 style=\"line-height: 200%; padding-left: 30px;\"><strong>Les prestataires poursuivent la spirale vertueuse de la relocalisation 
-de l'économie</strong>, 
-en trouvant d'autres prestataires et producteurs locaux qui acceptent le&nbsp;Ropi. 
-C'est facile grâce à la <strong><a href=\"../../../../commerces\">carte et l'outil de recherche</a></strong> 
-des commerçants et producteurs. 
+<h4 style=\"line-height: 200%; padding-left: 30px;\">
+<strong>Les prestataires poursuivent la spirale vertueuse de la relocalisation 
+de l'économie</strong>, en achetant chez d'autres prestataires et producteurs locaux qui acceptent le Ropi. 
+C'est facile grâce à la {[la page de recherche des prestataires](frontend-page:commercants)}. 
 
-Et il existe encore bien <a href=\"../../../../page/Ropi/Ecouler%20ses%20Ropi\"><strong>d'autres mani&egrave;res d'écouler ses Ropi</strong>.</a></p>
 
-<p style=\";\"><strong>S'il n'existe pas de prestataire local adéquat</strong>, les ambassadeurs se feront un plaisir de <strong>rechercher le maillon manquant</strong>. Cependant, tous les usagers sont invités à proposer de nouveaux prestataires en remplissant le formulaire adhoc 
-(<a href=\"../../../../page/Actions/Proposer%20un%20maillon\">Proposer un maillon</a>).</p>
+<p>Et il existe encore bien {[d'autres manières d'écouler ses Ropi]}(comment-depenser-mes-ropi).</a></p>
+
+<p style=\";\"><strong>S'il n'existe pas de prestataire local adéquat</strong>, les ambassadeurs se feront un plaisir de 
+<strong>rechercher le maillon manquant</strong>. 
+Contactez l'équipe Ropi (<a href=\"mailto:support@ropi.be\"><code>support@ropi.be</code></a>) pour proposer un maillon (prestataire) manquant.</p>
+
 <p style=\"\"><strong>S'il n'y a vraiment pas moyen d'écouler ses Ropi</strong>,
-il est toujours possible de<strong> reconvertir les Ropi en euros</strong>, en s'acquittant d'une <strong>taxe de 5%</strong>. 
+il est toujours possible de<strong> reconvertir les Ropi en euros</strong>, en s'acquittant d'une <strong>taxe de 3%</strong>. 
 La reconversion n'est possible que pour les membres prestataires.&nbsp;</p>
-<p style=\"padding-left: 60px;\">&rarr; Pour ces démarches, contactez votre ambassadeur ou responsable de zone, 
-ou envoyez un mail à <a href=\"mailto:support@ropi.be\"><code>support@ropi.be</code></a>&nbsp; ou encore, complétez le <a href=\"../../../../page/Actions/proposer un maillon\">formulaire de proposition de maillage</a> en ligne.</p>
+
+<p style=\"padding-left: 60px;\">&rarr; Pour ces démarches, contactez votre {[ambassadeur](Les bénévoles du Ropi)}, 
+ou envoyez un mail à <a href=\"mailto:support@ropi.be\"><code>support@ropi.be</code></a></p>
+
+<p style=\"padding-left: 60px;\">&rarr; <strong> Pendant la durée du {[plan de redynamisation de la Ville de Mons](plan-redynamisation-ville-mons)}, 
+il ne sera pas possible de reconvertir ses Ropi en euro du 15 septembre 2021 au 15 mars 2022, en vue de favoriser l'économie locale ! </strong><p>
+
 <p style=\"\">Vous l'aurez compris, ce n'est pas du tout le but poursuivi de reconvertir ses Ropi en euros, 
-et c'est pour cela qu'une taxe de reconversion de 5% est appliquée. Le but recherché est au contraire d'<strong>agrandir le réseau des prestataires afin que les Ropi puissent circuler de prestataires en prestataires</strong> sans jamais rester bloqué chez un prestataire qui ne touverait pas de fili&egrave;re d'approvisionnement locale. La reconversion à 0% est aussi possible <a href=\"Ecouler ses Ropi\">sous certaines conditions</a>.</p>
-<p>&nbsp;</h4>
+et c'est pour cela qu'une taxe de reconversion est appliquée. Le but recherché est au contraire d'<strong>agrandir le réseau des 
+prestataires afin que les Ropi puissent circuler de prestataires en prestataires</strong> 
+sans jamais rester bloqué chez un prestataire qui ne touverait pas de fili&egrave;re d'approvisionnement locale. 
+La reconversion à 0% est aussi possible {[sous certaines conditions](reconvertir-mes-ropi-en-euros)}.</p>
+
+</h4>
 
 <br>
 <br>
@@ -135,11 +148,11 @@ voire de <strong>trouver de nouvelles fili&egrave;res d'approvisonnement</strong
 <h4 style=\"line-height: 200%; \">Ce sont les consommateurs ET les prestataires, qui <strong>ensemble</strong>, 
 avec l'aide du Ropi comme vecteur d'échange, contribuent ainsi à relocaliser et circulariser l'économie.</p>
 <p><img style=\"display: block; margin-left: auto; margin-right: auto;\" 
-src=\"https://localhost:8000/images/cms/component_circulation.png\" 
+src=\"https://raw.githubusercontent.com/RopiMons/RopiDocs/master/WebSite/images/component_circulation.png\" 
 alt=\"\" width=\"400\" /></p>
 
 <p style=\"line-height: 200%;\">Le fonctionnement du Ropi est détaillé dans le
-<a href=\"https://github.com/RopiMons/RopiDocs/raw/master/ROI/RopiROI.pdf\">R&egrave;glement d'Ordre d'Intérieur</a>.</p>
+<a href=\"https://raw.githubusercontent.com/RopiMons/RopiDocs/raw/master/ROI/RopiROI.pdf\">Règlement d'Ordre d'Intérieur</a>.</p>
 
 <p>&nbsp;</h4>
 

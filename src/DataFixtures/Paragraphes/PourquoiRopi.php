@@ -7,15 +7,15 @@ return  "
 <br>
 
 <h3  style=\"text-align: center \">
-<strong>Le Ropi ne remplace pas l'euro, il le compl&eacute;mente!</strong>
+<strong>Le Ropi ne remplace pas l'euro, il le complémente!</strong>
 </h3>
 
 
 <br>
 <br>
 
-<h4 style=\"text-align: center \">
-Il circule en parall&egrave;le &agrave; l'euro (&euro;), et par facilit&eacute;, il partage la m&ecirc;me &eacute;chelle de valeur
+<h4 style=\"line-height: 200%\">
+Il circule en parallèle à l'euro (&euro;), et par facilité, il partage la même échelle de valeur.
 </h4>
 
 <br>
@@ -23,8 +23,8 @@ Il circule en parall&egrave;le &agrave; l'euro (&euro;), et par facilit&eacute;,
 
 
 <h4 style=\"padding-left: 30px; text-align: center;\">&nbsp;
-    <img src=\"https://github.com/RopiMons/RopiDocs/raw/master/Visuels/Icones/component_parite.png\" 
-    alt=\"1 Ropi = 1 Euro + &eacute;nergie positive!\" 
+    <img src=\"https://raw.githubusercontent.com/RopiMons/RopiDocs/master/WebSite/images/component_parite.png\" 
+    alt=\"1 Ropi = 1 Euro + énergie positive!\" 
     width=\"400\"  />
 </h4>
 
@@ -41,12 +41,32 @@ Il circule en parall&egrave;le &agrave; l'euro (&euro;), et par facilit&eacute;,
 <br>
 <br>
 
-<h4 style=\"line-height: 200%; text-align: center \">
-Sa sp&eacute;cificit&eacute; par rapport &agrave; l'euro est de <em>n'avoir court qu'au sein d'une r&eacute;gion limit&eacute;e</em> (Mons-Borinage)
+<h4 style=\"line-height: 200%\">
+
+<p>Sa spécificité par rapport à l'euro est de n'avoir cours qu'au sein d'une <strong>région limitée</strong> (Mons-Borinage).</p>
+
+<p> Quand vous payez en Ropi chez un commerçant, lui aussi sera incité à payer ses fournisseurs en Ropi.
+Ces <strong>fournisseurs seront nécessairement locaux</strong> puisque le Ropi n'est accepté que dans la région. </p>
+
+<p>Le Ropi favorise ainsi <strong>l'économie locale et les circuits de distribution courts</strong>. </p>
+
+<p> En payant en Ropi, vous aidez au développement des activités économiques de la région et respectueuses de l'environnement.
+Vous améliorez le bien être de la population montoise, sans externaliser les coûts sociaux et écologiques à l'étranger ! <p>
+
+
 <br>
-Il favorise ainsi l'<em>&eacute;conomie locale</em> et les <em>circuits de distribution courts</em>. 
+
+</h4>
+
+
+<img style=\"display: block; margin-left: auto; margin-right: auto;\" 
+src=\"https://raw.githubusercontent.com/RopiMons/RopiDocs/master/WebSite/images/illu_ropi.png\" 
+alt=\"\" width=\"600\" />
+
 <br>
-(consultez <a href=\"../../../../page/Documents/Documents fondateurs\">nos documents fondateurs</a>)
+
+<h4 style=\"line-height: 200%\">
+    Pour en savoir plus sur nos valeurs, consultez {[nos documents fondateurs](les-statuts-de-lasbl)} 
 </h4>
 
 <br>
