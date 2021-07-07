@@ -82,6 +82,10 @@ Encore
     // uncomment if you use API Platform Admin (composer req api-admin)
     .enableReactPreset()
 //.addEntry('admin', './assets/admin.js')
+    .configureWatchOptions(watchOptions => {
+        watchOptions.poll = 250; // check for changes every 250 milliseconds
+    });
+
 ;
 
 module.exports = Encore.getWebpackConfig();
