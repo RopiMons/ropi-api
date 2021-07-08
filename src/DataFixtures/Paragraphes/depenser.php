@@ -6,9 +6,8 @@ return  "
 <br>
 <br>
 
-<h4 style=\"line-height: 200%; \">La vocation des Ropi est de circuler, c'est à dire qu'après avoir été injectés dans le circuit par les usagers 
-(<a href=\"https://www.ropi.be/page/Actions/Commander des Ropi\">acheter des Ropi</a>), 
-les Ropi doivent continuer à <strong> circuler de commerçants en producteurs</strong> et de producteurs en commerçants.</h4>
+<h4 style=\"line-height: 200%; \">La vocation des Ropi est de circuler, c'est à dire qu'après avoir été injectés dans le circuit par les usagers, 
+les Ropi doivent continuer à <strong> circuler de commerçants en producteurs</strong> et <strong> de producteurs en commerçants</strong> .</h4>
 
 <br>
 <h4 style=\"line-height: 200%;  \">Si un <strong>goulot d'étranglement</strong> se crée, c'est à dire que des Ropi s'accumulent dans le tiroir-caisse 
@@ -21,15 +20,14 @@ et producteurs à les utiliser sans modération! Voyez plutôt :</h4>
 
 <h4 style=\"line-height: 200%;\">
 <ul>
-<li>Trouver des fournisseurs locaux et les payer en Ropi. Utiliser <a href=\"https://www.ropi.be/commerces\">l'outil de recherche</a> 
-des commerçants et producteurs.</li>
-<li>Se rendre des services entre commerçants, payés en Ropi.</li>
-<li>Reprendre les Ropi de sa caisse (échange contre des euros) et les dépenser à titre personnel (loisirs, culture, achat dans les commerces locaux, ...).</li>
-<li>Echanger des Ropi à un usager (membre ou non) qui en fait la demande.</li>
-<li>Proposer à un usager (membre ou non) de lui rendre la monnaie en Ropi.</li>
-<li>Offrir des Ropi en guise de ristournes (= carte de fidélité mutualisée).</li>
-<li>Rééquilibrer les caisses entre commerçants.</li>
-<li>Payer son repas du midi, une réunion d'affaire en Ropi.</li>
+<li>Trouver des fournisseurs locaux et les payer en Ropi. Utiliser {[l'outils de recherche des commerçants et producteurs](frontend-page:commercants)},</li>
+<li>Se rendre des services entre commerçants, payés en Ropi,</li>
+<li>Reprendre les Ropi de sa caisse (échange contre des euros) et les dépenser à titre personnel (loisirs, culture, achat dans les commerces locaux, ...),</li>
+<li>Echanger des Ropi à un usager (membre ou non) qui en fait la demande,</li>
+<li>Proposer à un usager (membre ou non) de lui rendre la monnaie en Ropi,</li>
+<li>Offrir des Ropi en guise de ristournes (= carte de fidélité mutualisée),</li>
+<li>Rééquilibrer les caisses entre commerçants,</li>
+<li>Payer son repas du midi, une réunion d'affaire en Ropi,</li>
 </ul>
 </h4>
 
@@ -40,17 +38,9 @@ des commerçants et producteurs.</li>
 <br><br>
 
 <h4 style=\"line-height: 200%;\">En enfin, si malgré tout ça il n'est pas possible d'écouler tous ses Ropi, <strong>il reste la possibilité 
-de les&nbsp;<a href=\"https://www.ropi.be/page/Actions/Reconvertir%20des%20Ropi\">reconvertir</a> en euros en 
-s'acquitant d'une taxe de <code>5</code> %</strong>.</h4>
+de {[reconvertir ses Ropi en euros]}(reconvertir-mes-ropi-en-euros).</h4>
 
 <br>
-
-<h4 style=\"line-height: 200%; \"><strong>En dernier recours</strong>, la<strong> reconversion à 0 % (sans taxe)</strong> est possible 
-<strong>au dessus d'un certain montant</strong>. En effet, un commerçant qui a vraiment du mal à écouler ses Ropi, 
-peut le signaler à l'asbl qui cherchera alors une solution en collaboration avec le commerçant pour écouler les Ropi. 
-Si aucune solution n'est trouvée endéans les deux semaines, la reconversion à 0% est acceptée pour une durée déterminée,
-<strong>par tranche de <code>100</code> € pour les asbl et <code>200</code> € pour les prestataires du secteur marchand</strong>.
-</h4>
 
 
 ";

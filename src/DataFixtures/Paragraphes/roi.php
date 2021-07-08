@@ -13,7 +13,8 @@ return  "
 <h5 style=\"line-height: 200%; text-align: center; \">Le réglement d'ordre intérieur est le document de référence décrivant 
 les règles de fonctionnement du Ropi.</h5>
 
-<h5 style=\"line-height: 200%; text-align: center; \">[<a href=\"https://github.com/RopiMons/RopiDocs/raw/master/ROI/RopiROI.pdf\">Téléchargement pdf</a>]</h5>
+<h5 style=\"line-height: 200%; text-align: center; \">[<a href=\"https://raw.githubusercontent.com/RopiMons/RopiDocs/master/ROI/RopiROI.pdf\">
+Téléchargement pdf</a>]</h5>
 
 <br>
 <br>

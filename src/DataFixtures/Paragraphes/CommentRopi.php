@@ -100,24 +100,23 @@ width=\"400\"  />
 <h4 style=\"line-height: 200%; padding-left: 30px;\">
 <strong>Les prestataires poursuivent la spirale vertueuse de la relocalisation 
 de l'économie</strong>, en achetant chez d'autres prestataires et producteurs locaux qui acceptent le Ropi. 
-C'est facile grâce à la {[la page de recherche des prestataires](frontend-page:commercants)}. 
+C'est facile d'en trouver, grâce à la {[la page de recherche des prestataires](frontend-page:commercants)}. 
 
 
 <p>Et il existe encore bien {[d'autres manières d'écouler ses Ropi]}(comment-depenser-mes-ropi).</a></p>
 
 <p style=\";\"><strong>S'il n'existe pas de prestataire local adéquat</strong>, les ambassadeurs se feront un plaisir de 
 <strong>rechercher le maillon manquant</strong>. 
-Contactez l'équipe Ropi (<a href=\"mailto:support@ropi.be\"><code>support@ropi.be</code></a>) pour proposer un maillon (prestataire) manquant.</p>
+Contactez {[l'équipe Ropi](les-benevoles-du-ropi)} pour proposer un maillon (prestataire) manquant.</p>
 
 <p style=\"\"><strong>S'il n'y a vraiment pas moyen d'écouler ses Ropi</strong>,
 il est toujours possible de<strong> reconvertir les Ropi en euros</strong>, en s'acquittant d'une <strong>taxe de 3%</strong>. 
 La reconversion n'est possible que pour les membres prestataires.&nbsp;</p>
 
-<p style=\"padding-left: 60px;\">&rarr; Pour ces démarches, contactez votre {[ambassadeur](Les bénévoles du Ropi)}, 
-ou envoyez un mail à <a href=\"mailto:support@ropi.be\"><code>support@ropi.be</code></a></p>
+<p style=\"padding-left: 60px;\">&rarr; Pour ces démarches, contactez un de nos {[bénévoles](les-benevoles-du-ropi)}.
 
-<p style=\"padding-left: 60px;\">&rarr; <strong> Pendant la durée du {[plan de redynamisation de la Ville de Mons](plan-redynamisation-ville-mons)}, 
-il ne sera pas possible de reconvertir ses Ropi en euro du 15 septembre 2021 au 15 mars 2022, en vue de favoriser l'économie locale ! </strong><p>
+<p style=\"padding-left: 60px;\">&rarr; <font color=\"red\">  <strong> Pendant la durée du {[plan de redynamisation de la Ville de Mons](plan-redynamisation-ville-mons)}, 
+il ne sera pas possible de reconvertir ses Ropi en euro du 15 septembre 2021 au 15 mars 2022, en vue de favoriser l'économie locale ! </strong> </font><p>
 
 <p style=\"\">Vous l'aurez compris, ce n'est pas du tout le but poursuivi de reconvertir ses Ropi en euros, 
 et c'est pour cela qu'une taxe de reconversion est appliquée. Le but recherché est au contraire d'<strong>agrandir le réseau des 
@@ -132,28 +131,9 @@ La reconversion à 0% est aussi possible {[sous certaines conditions](reconverti
 <br>
 <br>
 
-<h3 style=\"text-align: center;\"><strong>En conclusion</strong></h3>
-
-<br>
-
-<h4 style=\"line-height: 200%;  \">Ce sont des <strong>citoyens</strong> engagés pour le devenir de leur cité 
-qui <strong>injectent des Ropi dans l'économie locale</strong> en achetant des Ropi 
-et <strong>en s'approvisionnant chez les prestataires locaux</strong> qui acceptent les Ropi. En agissant de la sorte, 
-les citoyens s'attendent que les prestataires leur emboiteront le pas.</h4>
-
-<h4 style=\"line-height: 200%; \">Ce sont des <strong>prestataires</strong> engagés pour le devenir de leur cité, 
-qui acceptent les Ropi, et font la démarche de s'approvisioner dans l'économie locale, 
-voire de <strong>trouver de nouvelles fili&egrave;res d'approvisonnement</strong>.</h4>
-
-<h4 style=\"line-height: 200%; \">Ce sont les consommateurs ET les prestataires, qui <strong>ensemble</strong>, 
-avec l'aide du Ropi comme vecteur d'échange, contribuent ainsi à relocaliser et circulariser l'économie.</p>
-<p><img style=\"display: block; margin-left: auto; margin-right: auto;\" 
-src=\"https://raw.githubusercontent.com/RopiMons/RopiDocs/master/WebSite/images/component_circulation.png\" 
-alt=\"\" width=\"400\" /></p>
-
+<h4>
 <p style=\"line-height: 200%;\">Le fonctionnement du Ropi est détaillé dans le
-<a href=\"https://raw.githubusercontent.com/RopiMons/RopiDocs/raw/master/ROI/RopiROI.pdf\">Règlement d'Ordre d'Intérieur</a>.</p>
-
+{[Règlement d'Ordre d'Intérieur]}(le-règlement-dordre-interieur).</p>
 <p>&nbsp;</h4>
 
 

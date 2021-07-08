@@ -154,25 +154,25 @@ class ParagrapheFixtures extends Fixture implements DependentFixtureInterface
                 'text' => "<p> paragraphe faire un don </p>"
             ],
             'paragraphe-enregistrer' => [
-                'titre' => "Enregistrer mon(mes) commerce(s) / activité(s)",
+                'titre' => "Enregistrer mon commerce·s ou activité·s",
                 'ref' => 'page-prestataires',
                 'position' => 1,
                 'publicationDate' =>  null,
-                'text' => "<p> paragraphe enregistrer mon commerce </p>"
+                'text' =>  include 'Paragraphes/enregistrerEntreprise.php'
             ],
             'paragraphe-kit' => [
                 'titre' => "Kit commerçant",
                 'ref' => 'page-prestataires',
                 'position' => 2,
                 'publicationDate' =>  null,
-                'text' => "<p> paragraphe mon kit commerçant </p>"
+                'text' => include 'Paragraphes/kitCommercants.php'
             ],
             'paragraphe-écouler' => [
                 'titre' => "Des idées pour écouler mes Ropi",
                 'ref' => 'page-prestataires',
                 'position' => 3,
                 'publicationDate' =>  null,
-                'text' => "<p> paragraphe idées pour écouler mes Ropi </p>"
+                'text' => include 'Paragraphes/depenser.php'
             ],
             'paragraphe-reconvertir' => [
                 'titre' => "Reconvertir mes Ropi en euros",
@@ -208,6 +208,13 @@ class ParagrapheFixtures extends Fixture implements DependentFixtureInterface
                 'position' => 2,
                 'publicationDate' =>  null,
                 'text' => "<p> Consulter les outils de démarchage </p>"
+            ],
+            'paragraphe-contact' => [
+                'titre' => "Nous contacter",
+                'ref' => 'page-contact',
+                'position' => 1,
+                'publicationDate' =>  null,
+                'text' => include 'Paragraphes/equipe.php'
             ]
         ];
 

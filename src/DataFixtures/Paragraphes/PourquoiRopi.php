@@ -46,7 +46,7 @@ Il circule en parallèle à l'euro (&euro;), et par facilité, il partage la mê
 <p>Sa spécificité par rapport à l'euro est de n'avoir cours qu'au sein d'une <strong>région limitée</strong> (Mons-Borinage).</p>
 
 <p> Quand vous payez en Ropi chez un commerçant, lui aussi sera incité à payer ses fournisseurs en Ropi.
-Ces <strong>fournisseurs seront nécessairement locaux</strong> puisque le Ropi n'est accepté que dans la région. </p>
+Ses fournisseurs seront nécessairement locaux</strong> puisque le Ropi n'est accepté que dans la région. </p>
 
 <p>Le Ropi favorise ainsi <strong>l'économie locale et les circuits de distribution courts</strong>. </p>
 
