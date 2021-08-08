@@ -88,7 +88,7 @@ class ParagrapheFixtures extends Fixture implements DependentFixtureInterface
                 'ref' => 'page-coulisses',
                 'position' => 2,
                 'publicationDate' =>  null,
-                'text' => "<p> Ceci sont les chiffres</p>"
+                'text' => include 'Paragraphes/bilan.php'
             ],
             'paragraphe-roi' => [
                 'titre' => "Le Règlement d'Ordre Intérieur",
@@ -137,7 +137,7 @@ class ParagrapheFixtures extends Fixture implements DependentFixtureInterface
                 'ref' => 'page-usagers',
                 'position' => 4,
                 'publicationDate' =>  null,
-                'text' => "<p> paragraphe devenir membre </p>"
+                'text' => include 'Paragraphes/adhesionMembre.php'
             ],
             'paragraphe-proposer' => [
                 'titre' => "Parainer un commerce",
